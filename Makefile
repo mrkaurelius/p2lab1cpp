@@ -6,8 +6,8 @@ test : export LD_LIBRARY_PATH=/home/mrk1debian/gelistirme/p2lab1cpp/SFML-2.5.1/l
 SFML_LIB_PATH = -L/home/mrk1debian/gelistirme/p2lab1cpp/SFML-2.5.1/lib
 SFML_INC_PATH = -I/home/mrk1debian/gelistirme/p2lab1cpp/SFML-2.5.1/include
 
-output: main.o  Character.o Stormtrooper.o
-	g++ main.o Character.o  Stormtrooper.o -o sfml-app $(SFML_LIB_PATH) -lsfml-graphics -lsfml-window -lsfml-system
+output: main.o  Character.o Stormtrooper.o KyloRen.o DarthVader.o
+	g++ main.o Character.o  Stormtrooper.o KyloRen.o DarthVader.o -o sfml-app $(SFML_LIB_PATH) -lsfml-graphics -lsfml-window -lsfml-system
 	#linking 
 
 main.o: main.cpp
@@ -21,6 +21,14 @@ Character.o: Character.cpp
 Stormtrooper.o: Stormtrooper.cpp 
 	g++ -c Stormtrooper.cpp $(SFML_INC_PATH) 
 	#compiled stromtrooper.cpp
+
+KyloRen.o: KyloRen.cpp 
+	g++ -c KyloRen.cpp $(SFML_INC_PATH) 
+	#compiled KyloRen.cpp
+
+DarthVader.o: DarthVader.cpp 
+	g++ -c DarthVader.cpp $(SFML_INC_PATH) 
+	#compiled DarthVader.cpp
 
 #target: depencdencies
 #	action

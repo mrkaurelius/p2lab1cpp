@@ -1,9 +1,9 @@
 #include <SFML/Graphics.hpp>
-#include "Stormtrooper.hpp"
+#include "DarthVader.hpp"
 #include "Character.hpp"
 #include <iostream>
 
-Stormtrooper::Stormtrooper(const char* name,int x,int y){
+DarthVader::DarthVader(const char* name,int x,int y){
     this->name = name;
     this->logicX = x;
     this->logicY = y-1;
@@ -18,13 +18,13 @@ Stormtrooper::Stormtrooper(const char* name,int x,int y){
    
     sf::RectangleShape tmpSpirit(sf::Vector2f(50.0f,50.0f));
     tmpSpirit.setPosition((y-1) * 50, x * 50);
-    tmpSpirit.setTextureRect(sf::IntRect(character_textureSize.x * 7,character_textureSize.y * 4,character_textureSize.x,character_textureSize.y));
+    tmpSpirit.setTextureRect(sf::IntRect(character_textureSize.x * 5,character_textureSize.y * 6,character_textureSize.x,character_textureSize.y));
     
     this->spirit = tmpSpirit;
     std::cout << "STORM merhaba zalım dunya eved adım "<< this->name << std::endl;
 }
 
-void Stormtrooper::moveRandom(int **gameBoardLogic){
+void DarthVader::moveRandom(int **gameBoardLogic){
     srand(time(NULL));
     int x = this->logicX;
     int y = this->logicY;
@@ -132,12 +132,12 @@ void Stormtrooper::moveRandom(int **gameBoardLogic){
    std::cout << "////////////////////////////////////////////////////////" << std::endl;
 }
 
-Stormtrooper::Stormtrooper()
+DarthVader::DarthVader()
 {
 
 }
 
-Stormtrooper::~Stormtrooper()
+DarthVader::~DarthVader()
 {
     std::cout << "STORM dunya meger sende bir hayalden ibaretmissin... " << this->name << std::endl;
 }

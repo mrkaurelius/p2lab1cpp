@@ -34,6 +34,4 @@ public:
     void sayHello();
 };
 
-
-
 #endif

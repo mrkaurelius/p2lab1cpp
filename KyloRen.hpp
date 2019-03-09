@@ -4,7 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include "Character.hpp"
 
-class Stormtrooper : public Character
+class KyloRen : public Character
 {
 private:
     /* data */
@@ -12,7 +12,7 @@ public:
     void moveRandom(int **gameBoardLogic);
 
 public:
-    Stormtrooper(const char* name,int x,int y);
-    Stormtrooper(/* args */);
-    ~Stormtrooper();
+    KyloRen(const char* name,int x,int y);
+    KyloRen(/* args */);
+    ~KyloRen();
 };
