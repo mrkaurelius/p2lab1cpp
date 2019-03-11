@@ -8,10 +8,11 @@ KyloRen::KyloRen(const char* name,int x,int y){
     this->logicX = x;
     this->logicY = y-1;
     this->initialX = x;
-    this->initialY = y;
+    this->initialY = y-1;
     
     sf::Texture character_texture;
-    character_texture.loadFromFile("/home/mrk1debian/gelistirme/cpptut/media/sheet1.png");
+    //character_texture.loadFromFile("/home/mrk1debian/gelistirme/cpptut/media/sheet1.png");
+    character_texture.loadFromFile("/home/mrk0debian/gelistirme/p2lab1cpp/media/sheet1.png");
     sf::Vector2u character_textureSize = character_texture.getSize();
     character_textureSize.x /= 8;
     character_textureSize.y /= 8;
@@ -28,6 +29,7 @@ void KyloRen::moveRandom(int **gameBoardLogic){
     srand(time(NULL));
     int x = this->logicX;
     int y = this->logicY;
+   std::cout << "////////////////////////KYLOREN//////////////////////////" << std::endl;
 
     //this->logicX++;
     //this->spirit.move(0,50 * 1);
@@ -129,7 +131,7 @@ void KyloRen::moveRandom(int **gameBoardLogic){
     
     std::cout << std::endl;
 
-   std::cout << "////////////////////////////////////////////////////////" << std::endl;
+   std::cout << "////////////////////////KYLOREN//////////////////////////" << std::endl;
 }
 
 KyloRen::KyloRen()

@@ -15,6 +15,7 @@ public:
     int logicY;
     int initialX;
     int initialY;
+    //bool good;
     sf::RectangleShape spirit;
 public:
     void moveRight();

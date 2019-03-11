@@ -5,6 +5,8 @@
 #include "Stormtrooper.hpp"
 #include "KyloRen.hpp"
 #include "DarthVader.hpp"
+#include "LukeSkywalker.hpp"
+#include "MasterYoda.hpp"
 
 using namespace std;
 
@@ -14,63 +16,42 @@ bool checkMove(int x, int y,int** gameBoardLogic);
 void printLogicMap(int x, int y,int** gameBoardLogic);
 vector<Stormtrooper*> initStormtrooper();
 vector<KyloRen*> initKyloRen();
+vector<DarthVader*> initDarthVader();
 
-vector<DarthVader*> initDarthVader(){
-    vector<DarthVader*> sv;
-    //kapılar hardcoded
-    //Karakter:DarthVader,Kapi:A
-    string line;
-    ifstream map("harita.txt");
-    if ( map.is_open() ) {
-        //int ax=0;int ay=5;int bx=4;int by=0;int cx=12;int cy=0;int dx=13;int dy=5;int ex=4;int ey=10;
-        while( getline(map,line) ){
-            char tn[64];
-            char td;
-            if (line[0] == 'K') {
-                string tn;
-                char td;
-                string s = line;
-                string delimiter = ",";
-                string token = s.substr(0, s.find(delimiter));
-                string s1 = token;
-                string delimiter1 = ":";
-                string token1 = s1.substr(s1.find(delimiter1)+1,s1[s1.size()-1]);
-                tn = token1;
-                td = line[line.size()-1];
-                //cout << td << " " << tn << endl;
-                int ix;int iy;
-                if (td == 'A') {
-                    ix = 0;iy=5;
-                }
-                if (td == 'B') {
-                    ix = 5;iy=1;
-                }
-                if (td == 'C') {
-                    ix = 0;iy=13;
-                }
-                if (td == 'D') {
-                    ix = 5;iy=14;
-                }
-                if (td == 'E') {
-                    ix = 10;iy=5;
-                }
-                if(!tn.compare("DarthVader") ){
-                    DarthVader *p =new DarthVader("DarthVader",ix,iy);
-                    sv.push_back(p);
-                }
-            }
-        }
+void resetRound(Character *c,vector<DarthVader*> DarthV,vector<KyloRen*> KyloV,vector<Stormtrooper*> StormV ){
+    for(int i = 0; i < DarthV.size(); i++)
+    {
+        DarthVader *td = DarthV[i];
+        td->logicX = td->initialX;
+        td->logicY = td->initialY;
+        td->spirit.setPosition(td->initialY * 50,td->initialX * 50);
     }
-
-    else cout << "dosya acılamadı " << endl;
-    return sv;
+    for(int i = 0; i < KyloV.size(); i++)
+    {
+        KyloRen *td = KyloV[i];
+        td->logicX = td->initialX;
+        td->logicY = td->initialY;
+        td->spirit.setPosition(td->initialY * 50,td->initialX * 50);
+    }
+    for(int i = 0; i < StormV.size(); i++)
+    {
+        Stormtrooper *td = StormV[i];
+        td->logicX = td->initialX;
+        td->logicY = td->initialY;
+        td->spirit.setPosition(td->initialY * 50,td->initialX * 50);
+    }
+    c->logicX = c->initialX;
+    c->logicY = c->initialY;
+    c->spirit.setPosition(c->initialY * 50,c->initialX * 50);    
 }
-
     // !!! logic konumlar ili ilgili sıkıntı var atlatma yapıldı    
     // !!! logic grafik farkı yeniden baslatmayı etliler
     // !!! harita dısına cikinca segfault oluyor 
-    // initial o kadar onemli degil ona bir vektor oyunu yapabilirim
-    // texturlerin kaybolmasının sebebi pointer kullanmamam olabilir 
+    //kylorenin hızlı olması metodu 2 kere cagırmasından oturu
+        //hareketin yarısından yanma kontrolu yapmalı mıyım
+    //karakterlerin logic debugunu yap
+    //farklı karakterler icin farklı restartlar olabilir 
+    
     // constructorların isleyisini kavra 
 int main()
 {   
@@ -83,30 +64,39 @@ int main()
     vector<KyloRen*> KyloV = initKyloRen(); 
     vector<DarthVader*> DarthV = initDarthVader(); 
 
-    //vector<Character*> StormV = initCharacters(); 
-    //vector<Character*> StormV = initCharacters(); 
-    
+    //iyi karakterleri mainde init et
+
     //road texture
     sf::Texture road;
-    road.loadFromFile("/home/mrk1debian/gelistirme/cpptut/media/sheet1.png");
+    //road.loadFromFile("/home/mrk1debian/gelistirme/cpptut/media/sheet1.png");
+    road.loadFromFile("/home/mrk0debian/gelistirme/p2lab1cpp/media/sheet1.png");
+
     sf::Vector2u road_textureSize = road.getSize();
     road_textureSize.x /= 8;
     road_textureSize.y /= 8;
     
     //wall texture
     sf::Texture wall;
-    wall.loadFromFile("/home/mrk1debian/gelistirme/cpptut/media/sheet1.png");
+    //wall.loadFromFile("/home/mrk1debian/gelistirme/cpptut/media/sheet1.png");
+    wall.loadFromFile("/home/mrk0debian/gelistirme/p2lab1cpp/media/sheet1.png");
+
     sf::Vector2u wall_textureSize = wall.getSize();
     wall_textureSize.x /= 8;
     wall_textureSize.y /= 8;
 
     //player texture
     sf::Texture player_texture;
-    player_texture.loadFromFile("/home/mrk1debian/gelistirme/cpptut/media/sheet1.png");
+    //player_texture.loadFromFile("/home/mrk1debian/gelistirme/cpptut/media/sheet1.png");
+    player_texture.loadFromFile("/home/mrk0debian/gelistirme/p2lab1cpp/media/sheet1.png");
+
 
     // texture ref
     sf::Texture texture_ref;
-    texture_ref.loadFromFile("/home/mrk1debian/gelistirme/cpptut/media/sheet1.png");
+    //texture_ref.loadFromFile("/home/mrk1debian/gelistirme/cpptut/media/sheet1.png");
+    texture_ref.loadFromFile("/home/mrk0debian/gelistirme/p2lab1cpp/media/sheet1.png");
+
+    MasterYoda c("MasterYoda",6,5);
+    c.spirit.setTexture(&player_texture);    
 
     for(int i = 0; i < KyloV.size(); i++)
     {
@@ -126,11 +116,13 @@ int main()
         tp->spirit.setTexture(&texture_ref);
     }
 
-    Character c("rezzak",6,5);
-    c.spirit.setTexture(&player_texture);    
 
     //texturede sıkıntı oluyor
     //classa yazacagım move komutu ikisinide beraber götürsun grafik ve logic 
+
+    cout << "debug" << endl;
+    bool ENDROUND = false;
+
     while (window.isOpen())
     {   
         //bağımsız hareket etdemyi dusun 
@@ -156,19 +148,23 @@ int main()
                 c.moveLeft();
                 cout << endl;
             }
-            //printLogicMap(c.logicX,c.logicY,gameBoardLogic);
+            printLogicMap(c.logicX,c.logicY,gameBoardLogic);
 
             for(int i = 0; i < StormV.size(); i++)
             {
                 Stormtrooper *tp = StormV[i]; 
                 if(tp->logicX == c.logicX && tp->logicY == c.logicY){
                     cout << "yandın " << endl;
-                    exit(0);
+                    ENDROUND = true;
+                    break;
+                    //exit(0);
                 }
                 tp->moveRandom(gameBoardLogic);
                 if(tp->logicX == c.logicX && tp->logicY == c.logicY){
                     cout << "yandın " << endl;
-                    exit(0);
+                    ENDROUND = true;
+                    break;
+                    //exit(0);
                 }
             }
             
@@ -177,13 +173,31 @@ int main()
                 KyloRen *tp = KyloV[i]; 
                 if(tp->logicX == c.logicX && tp->logicY == c.logicY){
                     cout << "yandın " << endl;
-                    exit(0);
+                    ENDROUND = true;
+                    break;
+                    //exit(0);
                 }
                 tp->moveRandom(gameBoardLogic);
                 if(tp->logicX == c.logicX && tp->logicY == c.logicY){
                     cout << "yandın " << endl;
-                    exit(0);
+                    ENDROUND = true;
+                    break;
+                    //exit(0);
                 }
+                if(tp->logicX == c.logicX && tp->logicY == c.logicY){
+                    cout << "yandın " << endl;
+                    ENDROUND = true;
+                    break;
+                    //exit(0);
+                }
+                tp->moveRandom(gameBoardLogic);
+                if(tp->logicX == c.logicX && tp->logicY == c.logicY){
+                    cout << "yandın " << endl;
+                    ENDROUND = true;
+                    break;
+                    //exit(0);
+                }
+                
             }
             
             for(int i = 0; i < DarthV.size(); i++)
@@ -191,18 +205,19 @@ int main()
                 DarthVader *tp = DarthV[i]; 
                 if(tp->logicX == c.logicX && tp->logicY == c.logicY){
                     cout << "yandın " << endl;
-                    exit(0);
+                    ENDROUND = true;
+                    break;
+                    //exit(0);
                 }
                 tp->moveRandom(gameBoardLogic);
                 if(tp->logicX == c.logicX && tp->logicY == c.logicY){
                     cout << "yandın " << endl;
-                    exit(0);
+                    ENDROUND = true;
+                    break;
+                    //exit(0);
                 }
             }
-
-
             clock.restart();
-
             
         }
 
@@ -218,19 +233,23 @@ int main()
                 cout << endl;
             }
 
-            //printLogicMap(c.logicX,c.logicY,gameBoardLogic);
+            printLogicMap(c.logicX,c.logicY,gameBoardLogic);
             for(int i = 0; i < StormV.size(); i++)
             {
                 
                 Stormtrooper *tp = StormV[i];
                 if(tp->logicX == c.logicX && tp->logicY == c.logicY){
-                    cout << "yandın" << endl;
-                    exit(0);
+                    cout << "yandın " << endl;
+                    ENDROUND = true;
+                    break;
+                    //exit(0);
                 }                 
                 tp->moveRandom(gameBoardLogic);
                 if(tp->logicX == c.logicX && tp->logicY == c.logicY){
                     cout << "yandın " << endl;
-                    exit(0);
+                    ENDROUND = true;
+                    break;
+                    //exit(0);
                 }
             }
 
@@ -239,13 +258,30 @@ int main()
                 KyloRen *tp = KyloV[i]; 
                 if(tp->logicX == c.logicX && tp->logicY == c.logicY){
                     cout << "yandın " << endl;
-                    exit(0);
+                    ENDROUND = true;
+                    break;
+                    //exit(0);
                 }
                 tp->moveRandom(gameBoardLogic);
                 if(tp->logicX == c.logicX && tp->logicY == c.logicY){
                     cout << "yandın " << endl;
-                    exit(0);
+                    ENDROUND = true;
+                    break;
+                    //exit(0);
                 }
+                if(tp->logicX == c.logicX && tp->logicY == c.logicY){
+                    cout << "yandın " << endl;
+                    ENDROUND = true;
+                    break;
+                    //exit(0);
+                }
+                tp->moveRandom(gameBoardLogic);
+                if(tp->logicX == c.logicX && tp->logicY == c.logicY){
+                    cout << "yandın " << endl;
+                    ENDROUND = true;
+                    break;
+                    //exit(0);
+                }                
             }
 
             for(int i = 0; i < DarthV.size(); i++)
@@ -253,17 +289,19 @@ int main()
                 DarthVader *tp = DarthV[i]; 
                 if(tp->logicX == c.logicX && tp->logicY == c.logicY){
                     cout << "yandın " << endl;
-                    exit(0);
+                    ENDROUND = true;
+                    break;
+                    //exit(0);
                 }
                 tp->moveRandom(gameBoardLogic);
                 if(tp->logicX == c.logicX && tp->logicY == c.logicY){
                     cout << "yandın " << endl;
-                    exit(0);
+                    ENDROUND = true;
+                    break;
+                    //exit(0);
                 }
             }
-
             clock.restart();
-
         }      
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up))
@@ -278,18 +316,24 @@ int main()
                 cout << endl;                
             }
           
-            //printLogicMap(c.logicX,c.logicY,gameBoardLogic);
+            printLogicMap(c.logicX,c.logicY,gameBoardLogic);
             for(int i = 0; i < StormV.size(); i++)
             {
                 Stormtrooper *tp = StormV[i]; 
                 if(tp->logicX == c.logicX && tp->logicY == c.logicY){
-                    cout << "yandın" << endl;
-                    exit(0);
+                    cout << "yandın " << endl;
+                    ENDROUND = true;
+                    break;
+
+                    //exit(0);
                 }                
                 tp->moveRandom(gameBoardLogic);
                 if(tp->logicX == c.logicX && tp->logicY == c.logicY){
                     cout << "yandın " << endl;
-                    exit(0);
+                    ENDROUND = true;
+                    break;
+                    
+                    //exit(0);
                 }                
             }
             for(int i = 0; i < KyloV.size(); i++)
@@ -297,13 +341,34 @@ int main()
                 KyloRen *tp = KyloV[i]; 
                 if(tp->logicX == c.logicX && tp->logicY == c.logicY){
                     cout << "yandın " << endl;
-                    exit(0);
+                    ENDROUND = true;
+                    break;
+                    
+                    //exit(0);
                 }
                 tp->moveRandom(gameBoardLogic);
                 if(tp->logicX == c.logicX && tp->logicY == c.logicY){
                     cout << "yandın " << endl;
-                    exit(0);
+                    ENDROUND = true;
+                    break;
+                    
+                    //exit(0);
                 }
+                if(tp->logicX == c.logicX && tp->logicY == c.logicY){
+                    cout << "yandın " << endl;
+                    ENDROUND = true;
+                    break;
+                    
+                    //exit(0);
+                }
+                tp->moveRandom(gameBoardLogic);
+                if(tp->logicX == c.logicX && tp->logicY == c.logicY){
+                    cout << "yandın " << endl;
+                    ENDROUND = true;
+                    break;
+                    
+                    //exit(0);
+                }                
             }
 
             for(int i = 0; i < DarthV.size(); i++)
@@ -311,12 +376,18 @@ int main()
                 DarthVader *tp = DarthV[i]; 
                 if(tp->logicX == c.logicX && tp->logicY == c.logicY){
                     cout << "yandın " << endl;
-                    exit(0);
+                    ENDROUND = true;
+                    break;
+                    
+                    //exit(0);
                 }
                 tp->moveRandom(gameBoardLogic);
                 if(tp->logicX == c.logicX && tp->logicY == c.logicY){
                     cout << "yandın " << endl;
-                    exit(0);
+                    ENDROUND = true;
+                    break;
+                    
+                    //exit(0);
                 }
             }
 
@@ -335,18 +406,24 @@ int main()
                 c.moveDown();
                 cout << endl;                
             }        
-            //printLogicMap(c.logicX,c.logicY,gameBoardLogic);
+            printLogicMap(c.logicX,c.logicY,gameBoardLogic);
             for(int i = 0; i < StormV.size(); i++)
             {
                 Stormtrooper *tp = StormV[i]; 
                 if(tp->logicX == c.logicX && tp->logicY == c.logicY){
-                    cout << "yandın" << endl;
-                    exit(0);
+                    cout << "yandın " << endl;
+                    ENDROUND = true;
+                    break;
+
+                    //exit(0);
                 }                
                 tp->moveRandom(gameBoardLogic);
                 if(tp->logicX == c.logicX && tp->logicY == c.logicY){
                     cout << "yandın " << endl;
-                    exit(0);
+                    ENDROUND = true;
+                    break;
+                    
+                    //exit(0);
                 }                
             }
 
@@ -355,13 +432,34 @@ int main()
                 KyloRen *tp = KyloV[i]; 
                 if(tp->logicX == c.logicX && tp->logicY == c.logicY){
                     cout << "yandın " << endl;
-                    exit(0);
+                    ENDROUND = true;
+                    break;
+                    
+                    //exit(0);
                 }
                 tp->moveRandom(gameBoardLogic);
                 if(tp->logicX == c.logicX && tp->logicY == c.logicY){
                     cout << "yandın " << endl;
-                    exit(0);
+                    ENDROUND = true;
+                    break;
+                    
+                    //exit(0);
                 }
+                if(tp->logicX == c.logicX && tp->logicY == c.logicY){
+                    cout << "yandın " << endl;
+                    ENDROUND = true;
+                    break;
+                    
+                    //exit(0);
+                }
+                tp->moveRandom(gameBoardLogic);
+                if(tp->logicX == c.logicX && tp->logicY == c.logicY){
+                    cout << "yandın " << endl;
+                    ENDROUND = true;
+                    break;
+                    
+                    //exit(0);
+                }                
             }
 
             for(int i = 0; i < DarthV.size(); i++)
@@ -369,12 +467,18 @@ int main()
                 DarthVader *tp = DarthV[i]; 
                 if(tp->logicX == c.logicX && tp->logicY == c.logicY){
                     cout << "yandın " << endl;
-                    exit(0);
+                    ENDROUND = true;
+                    break;
+                    
+                    //exit(0);
                 }
                 tp->moveRandom(gameBoardLogic);
                 if(tp->logicX == c.logicX && tp->logicY == c.logicY){
                     cout << "yandın " << endl;
-                    exit(0);
+                    ENDROUND = true;
+                    break;
+                    
+                    //exit(0);
                 }
             }
 
@@ -427,10 +531,67 @@ int main()
             DarthVader *tp = DarthV[i]; 
             window.draw(tp->spirit);
         }        
+        window.display();
         
         //render ve logic sırası cnasıl olmalı, aradaki zaman nasıl ayarlanamalı
-        window.display();
+        if (ENDROUND) {
+            window.clear();
 
+            window.draw(c.spirit);
+            for(int i = 0; i < tileMap.size(); i++)
+            {
+                vector<sf::RectangleShape> tilemapRow = tileMap[i];
+                for(int j = 0; j < tilemapRow.size(); j++)
+                {
+                    //duvarlara texture girdir 
+                    if (gameBoardLogic[i][j] == 0) {
+                        tilemapRow[j].setTexture(&wall);
+                        tilemapRow[j].setTextureRect(sf::IntRect(wall_textureSize.x * 1,wall_textureSize.y * 3,wall_textureSize.x,wall_textureSize.y));
+                        window.draw(tilemapRow[j]);
+                        
+                    } else {
+                        tilemapRow[j].setTexture(&road);
+                        tilemapRow[j].setTextureRect(sf::IntRect(road_textureSize.x * 2,road_textureSize.y * 1,road_textureSize.x,road_textureSize.y));
+                        window.draw(tilemapRow[j]);
+                    }
+                }
+            }            
+            for(int i = 0; i < StormV.size(); i++)
+            {
+                Stormtrooper *tp = StormV[i]; 
+                window.draw(tp->spirit);
+            }
+
+            for(int i = 0; i < KyloV.size(); i++)
+            {
+                KyloRen *tp = KyloV[i]; 
+                window.draw(tp->spirit);
+            }
+
+            for(int i = 0; i < DarthV.size(); i++)
+            {
+                DarthVader *tp = DarthV[i]; 
+                window.draw(tp->spirit);
+            }              
+
+            window.display();
+
+            clock.restart();
+            sf::Time elapsed1 = clock.getElapsedTime();
+            //std::cout << elapsed1.asSeconds() << std::endl;
+            while(elapsed1.asSeconds() < 2){
+                elapsed1 = clock.getElapsedTime();
+            }
+            //levele reset at
+            resetRound(&c,DarthV,KyloV,StormV);
+            ENDROUND = false;
+            c.healt--;
+            // burayı daha sofistike yap 
+            if(c.healt == 0){
+                cout << "GAMEOVER" << endl;
+                exit(0);             
+            } 
+        }
     }
 
     return 0;
@@ -630,6 +791,57 @@ vector<KyloRen*> initKyloRen(){
                 }
                 if(!tn.compare("KyloRen") ){
                     KyloRen *p =new KyloRen("KyloRen",ix,iy);
+                    sv.push_back(p);
+                }
+            }
+        }
+    }
+
+    else cout << "dosya acılamadı " << endl;
+    return sv;
+}
+
+vector<DarthVader*> initDarthVader(){
+    vector<DarthVader*> sv;
+    //kapılar hardcoded
+    //Karakter:DarthVader,Kapi:A
+    string line;
+    ifstream map("harita.txt");
+    if ( map.is_open() ) {
+        //int ax=0;int ay=5;int bx=4;int by=0;int cx=12;int cy=0;int dx=13;int dy=5;int ex=4;int ey=10;
+        while( getline(map,line) ){
+            char tn[64];
+            char td;
+            if (line[0] == 'K') {
+                string tn;
+                char td;
+                string s = line;
+                string delimiter = ",";
+                string token = s.substr(0, s.find(delimiter));
+                string s1 = token;
+                string delimiter1 = ":";
+                string token1 = s1.substr(s1.find(delimiter1)+1,s1[s1.size()-1]);
+                tn = token1;
+                td = line[line.size()-1];
+                //cout << td << " " << tn << endl;
+                int ix;int iy;
+                if (td == 'A') {
+                    ix = 0;iy=5;
+                }
+                if (td == 'B') {
+                    ix = 5;iy=1;
+                }
+                if (td == 'C') {
+                    ix = 0;iy=13;
+                }
+                if (td == 'D') {
+                    ix = 5;iy=14;
+                }
+                if (td == 'E') {
+                    ix = 10;iy=5;
+                }
+                if(!tn.compare("DarthVader") ){
+                    DarthVader *p =new DarthVader("DarthVader",ix,iy);
                     sv.push_back(p);
                 }
             }
