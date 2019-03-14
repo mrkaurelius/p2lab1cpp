@@ -180,6 +180,7 @@ int main()
                     //exit(0);
                 }
                 tp->moveRandom(gameBoardLogic);
+                tp->shortest_path =  tp->calcPath(c.logicX,c.logicY,gameBoardLogic);
                 if(tp->logicX == c.logicX && tp->logicY == c.logicY){
                     cout << "yandın " << endl;
                     ENDROUND = true;
@@ -193,6 +194,7 @@ int main()
                     //exit(0);
                 }
                 tp->moveRandom(gameBoardLogic);
+                tp->shortest_path =  tp->calcPath(c.logicX,c.logicY,gameBoardLogic);
                 if(tp->logicX == c.logicX && tp->logicY == c.logicY){
                     cout << "yandın " << endl;
                     ENDROUND = true;
@@ -212,6 +214,7 @@ int main()
                     //exit(0);
                 }
                 tp->moveRandom(gameBoardLogic);
+                tp->shortest_path =  tp->calcPath(c.logicX,c.logicY);
                 if(tp->logicX == c.logicX && tp->logicY == c.logicY){
                     cout << "yandın " << endl;
                     ENDROUND = true;
@@ -266,6 +269,7 @@ int main()
                     //exit(0);
                 }
                 tp->moveRandom(gameBoardLogic);
+                tp->shortest_path =  tp->calcPath(c.logicX,c.logicY,gameBoardLogic);
                 if(tp->logicX == c.logicX && tp->logicY == c.logicY){
                     cout << "yandın " << endl;
                     ENDROUND = true;
@@ -279,6 +283,7 @@ int main()
                     //exit(0);
                 }
                 tp->moveRandom(gameBoardLogic);
+                tp->shortest_path =  tp->calcPath(c.logicX,c.logicY,gameBoardLogic);
                 if(tp->logicX == c.logicX && tp->logicY == c.logicY){
                     cout << "yandın " << endl;
                     ENDROUND = true;
@@ -351,7 +356,7 @@ int main()
                     //exit(0);
                 }
                 tp->moveRandom(gameBoardLogic);
-                
+                tp->shortest_path =  tp->calcPath(c.logicX,c.logicY,gameBoardLogic);
                 if(tp->logicX == c.logicX && tp->logicY == c.logicY){
                     cout << "yandın " << endl;
                     ENDROUND = true;
@@ -367,6 +372,7 @@ int main()
                     //exit(0);
                 }
                 tp->moveRandom(gameBoardLogic);
+                tp->shortest_path =  tp->calcPath(c.logicX,c.logicY,gameBoardLogic);
                 if(tp->logicX == c.logicX && tp->logicY == c.logicY){
                     cout << "yandın " << endl;
                     ENDROUND = true;
@@ -444,6 +450,7 @@ int main()
                     //exit(0);
                 }
                 tp->moveRandom(gameBoardLogic);
+                tp->shortest_path =  tp->calcPath(c.logicX,c.logicY,gameBoardLogic);
                 if(tp->logicX == c.logicX && tp->logicY == c.logicY){
                     cout << "yandın " << endl;
                     ENDROUND = true;
@@ -459,6 +466,7 @@ int main()
                     //exit(0);
                 }
                 tp->moveRandom(gameBoardLogic);
+                tp->shortest_path =  tp->calcPath(c.logicX,c.logicY,gameBoardLogic);
                 if(tp->logicX == c.logicX && tp->logicY == c.logicY){
                     cout << "yandın " << endl;
                     ENDROUND = true;
@@ -528,12 +536,11 @@ int main()
             for(int k = 0; k < tp->shortest_path.size(); k++)
             {
                 node_t tmp_r = tp->shortest_path[k];
-                sf::RectangleShape tmp(sf::Vector2f(50.0f,50.0f));
+                sf::RectangleShape tmp(sf::Vector2f(25.0f,25.0f));
                 tmp.setPosition(50 * (tmp_r.y) ,50 * tmp_r.x);
-                tmp.setFillColor(sf::Color::White);
+                tmp.setFillColor(sf::Color::Red);
                 path_graph.push_back(tmp);
             }
-
 
             for(int ii = 0; ii < path_graph.size(); ii++)
             {
@@ -547,12 +554,41 @@ int main()
         for(int i = 0; i < KyloV.size(); i++)
         {
             KyloRen *tp = KyloV[i]; 
+            vector <sf::RectangleShape> path_graph;
+            for(int k = 0; k < tp->shortest_path.size(); k++)
+            {
+                node_t tmp_r = tp->shortest_path[k];
+                sf::RectangleShape tmp(sf::Vector2f(25.0f,25.0f));
+                tmp.setPosition(50 * (tmp_r.y) ,50 * tmp_r.x);
+                tmp.setFillColor(sf::Color::Yellow);
+                path_graph.push_back(tmp);
+            }
+
+            for(int ii = 0; ii < path_graph.size(); ii++)
+            {
+                window.draw(path_graph[ii]);
+            }
+
             window.draw(tp->spirit);
         }
 
         for(int i = 0; i < DarthV.size(); i++)
         {
             DarthVader *tp = DarthV[i]; 
+            vector <sf::RectangleShape> path_graph;
+            for(int k = 0; k < tp->shortest_path.size(); k++)
+            {
+                node_t tmp_r = tp->shortest_path[k];
+                sf::RectangleShape tmp(sf::Vector2f(25.0f,25.0f));
+                tmp.setPosition(50 * (tmp_r.y) ,50 * tmp_r.x);
+                tmp.setFillColor(sf::Color::Black);
+                path_graph.push_back(tmp);
+            }
+
+            for(int ii = 0; ii < path_graph.size(); ii++)
+            {
+                window.draw(path_graph[ii]);
+            }            
             window.draw(tp->spirit);
         }        
         
