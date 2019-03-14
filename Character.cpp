@@ -4,14 +4,20 @@
 
 
 Character::Character(const char* name,int x,int y){
+    struct node_t
+    {
+        int x;
+        int y;
+        int counter;
+    }; 
     this->name = name;
-    this->logicX = x-1;
-    this->logicY = y+1;
-    this->initialX = x-1;
-    this->initialY = y+1;
+    this->logicX = x;
+    this->logicY = y;
+    this->initialX = x;
+    this->initialY = y;
     sf::Texture character_texture;
-    //character_texture.loadFromFile("/home/mrk1debian/gelistirme/cpptut/media/sheet1.png");
-    character_texture.loadFromFile("/home/mrk0debian/gelistirme/p2lab1cpp/media/sheet1.png");
+    character_texture.loadFromFile("/home/mrk1debian/gelistirme/cpptut/media/sheet1.png");
+    //character_texture.loadFromFile("/home/mrk0debian/gelistirme/p2lab1cpp/media/sheet1.png");
 
     sf::Vector2u character_textureSize = character_texture.getSize();
     character_textureSize.x /= 8;
@@ -44,13 +50,7 @@ void Character::moveDown(){
     this->spirit.move(0,50 * 1);
 }
 
-std::vector<sf::Vector2f> Character::shortestPath(){
-    std::cout << "merhaba zalım class " << std::endl;
-    std::vector<sf::Vector2f> rVect;
-    return rVect;
-    //buradan return alamayınca neden seg fault yiyorum
 
-};
 
 Character::Character()
 {

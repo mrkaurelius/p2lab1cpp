@@ -51,7 +51,6 @@ void resetRound(Character *c,vector<DarthVader*> DarthV,vector<KyloRen*> KyloV,v
         //hareketin yarısından yanma kontrolu yapmalı mıyım
     //karakterlerin logic debugunu yap
     //farklı karakterler icin farklı restartlar olabilir 
-    
     // constructorların isleyisini kavra 
 int main()
 {   
@@ -68,8 +67,8 @@ int main()
 
     //road texture
     sf::Texture road;
-    //road.loadFromFile("/home/mrk1debian/gelistirme/cpptut/media/sheet1.png");
-    road.loadFromFile("/home/mrk0debian/gelistirme/p2lab1cpp/media/sheet1.png");
+    road.loadFromFile("/home/mrk1debian/gelistirme/cpptut/media/sheet1.png");
+    //road.loadFromFile("/home/mrk0debian/gelistirme/p2lab1cpp/media/sheet1.png");
 
     sf::Vector2u road_textureSize = road.getSize();
     road_textureSize.x /= 8;
@@ -77,8 +76,8 @@ int main()
     
     //wall texture
     sf::Texture wall;
-    //wall.loadFromFile("/home/mrk1debian/gelistirme/cpptut/media/sheet1.png");
-    wall.loadFromFile("/home/mrk0debian/gelistirme/p2lab1cpp/media/sheet1.png");
+    wall.loadFromFile("/home/mrk1debian/gelistirme/cpptut/media/sheet1.png");
+    //wall.loadFromFile("/home/mrk0debian/gelistirme/p2lab1cpp/media/sheet1.png");
 
     sf::Vector2u wall_textureSize = wall.getSize();
     wall_textureSize.x /= 8;
@@ -86,14 +85,14 @@ int main()
 
     //player texture
     sf::Texture player_texture;
-    //player_texture.loadFromFile("/home/mrk1debian/gelistirme/cpptut/media/sheet1.png");
-    player_texture.loadFromFile("/home/mrk0debian/gelistirme/p2lab1cpp/media/sheet1.png");
+    player_texture.loadFromFile("/home/mrk1debian/gelistirme/cpptut/media/sheet1.png");
+    //player_texture.loadFromFile("/home/mrk0debian/gelistirme/p2lab1cpp/media/sheet1.png");
 
 
     // texture ref
     sf::Texture texture_ref;
-    //texture_ref.loadFromFile("/home/mrk1debian/gelistirme/cpptut/media/sheet1.png");
-    texture_ref.loadFromFile("/home/mrk0debian/gelistirme/p2lab1cpp/media/sheet1.png");
+    texture_ref.loadFromFile("/home/mrk1debian/gelistirme/cpptut/media/sheet1.png");
+    //texture_ref.loadFromFile("/home/mrk0debian/gelistirme/p2lab1cpp/media/sheet1.png");
 
     MasterYoda c("MasterYoda",6,5);
     c.spirit.setTexture(&player_texture);    
@@ -160,6 +159,9 @@ int main()
                     //exit(0);
                 }
                 tp->moveRandom(gameBoardLogic);
+                tp->shortest_path =  tp->calcPath(c.logicX,c.logicY,gameBoardLogic);
+                cout << "deneme" << endl;
+                //burada hesapla 
                 if(tp->logicX == c.logicX && tp->logicY == c.logicY){
                     cout << "yandın " << endl;
                     ENDROUND = true;
@@ -245,6 +247,7 @@ int main()
                     //exit(0);
                 }                 
                 tp->moveRandom(gameBoardLogic);
+                tp->shortest_path =  tp->calcPath(c.logicX,c.logicY,gameBoardLogic);
                 if(tp->logicX == c.logicX && tp->logicY == c.logicY){
                     cout << "yandın " << endl;
                     ENDROUND = true;
@@ -328,6 +331,7 @@ int main()
                     //exit(0);
                 }                
                 tp->moveRandom(gameBoardLogic);
+                tp->shortest_path =  tp->calcPath(c.logicX,c.logicY,gameBoardLogic);
                 if(tp->logicX == c.logicX && tp->logicY == c.logicY){
                     cout << "yandın " << endl;
                     ENDROUND = true;
@@ -347,6 +351,7 @@ int main()
                     //exit(0);
                 }
                 tp->moveRandom(gameBoardLogic);
+                
                 if(tp->logicX == c.logicX && tp->logicY == c.logicY){
                     cout << "yandın " << endl;
                     ENDROUND = true;
@@ -418,6 +423,7 @@ int main()
                     //exit(0);
                 }                
                 tp->moveRandom(gameBoardLogic);
+                tp->shortest_path =  tp->calcPath(c.logicX,c.logicY,gameBoardLogic);
                 if(tp->logicX == c.logicX && tp->logicY == c.logicY){
                     cout << "yandın " << endl;
                     ENDROUND = true;
@@ -517,6 +523,24 @@ int main()
         for(int i = 0; i < StormV.size(); i++)
         {
             Stormtrooper *tp = StormV[i]; 
+
+            vector <sf::RectangleShape> path_graph;
+            for(int k = 0; k < tp->shortest_path.size(); k++)
+            {
+                node_t tmp_r = tp->shortest_path[k];
+                sf::RectangleShape tmp(sf::Vector2f(50.0f,50.0f));
+                tmp.setPosition(50 * (tmp_r.y) ,50 * tmp_r.x);
+                tmp.setFillColor(sf::Color::White);
+                path_graph.push_back(tmp);
+            }
+
+
+            for(int ii = 0; ii < path_graph.size(); ii++)
+            {
+                window.draw(path_graph[ii]);
+            }
+            
+
             window.draw(tp->spirit);
         }
 
@@ -531,6 +555,10 @@ int main()
             DarthVader *tp = DarthV[i]; 
             window.draw(tp->spirit);
         }        
+        
+        //KISAYOLLARI GOSTER 
+        //FOR VECTOR .SHORTESTPATH 
+        
         window.display();
         
         //render ve logic sırası cnasıl olmalı, aradaki zaman nasıl ayarlanamalı
@@ -790,6 +818,7 @@ vector<KyloRen*> initKyloRen(){
                     ix = 10;iy=5;
                 }
                 if(!tn.compare("KyloRen") ){
+                    cout << "kyloren debug" << endl;
                     KyloRen *p =new KyloRen("KyloRen",ix,iy);
                     sv.push_back(p);
                 }

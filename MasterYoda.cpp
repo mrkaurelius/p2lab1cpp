@@ -11,8 +11,8 @@ MasterYoda::MasterYoda(const char* name,int x,int y){
     this->initialX = x-1;
     this->initialY = y+1;
     sf::Texture character_texture;
-    //character_texture.loadFromFile("/home/mrk1debian/gelistirme/cpptut/media/sheet1.png");
-    character_texture.loadFromFile("/home/mrk0debian/gelistirme/p2lab1cpp/media/sheet1.png");
+    character_texture.loadFromFile("/home/mrk1debian/gelistirme/cpptut/media/sheet1.png");
+    //character_texture.loadFromFile("/home/mrk0debian/gelistirme/p2lab1cpp/media/sheet1.png");
 
     sf::Vector2u character_textureSize = character_texture.getSize();
     character_textureSize.x /= 8;
@@ -23,7 +23,7 @@ MasterYoda::MasterYoda(const char* name,int x,int y){
     tmpSpirit.setTextureRect(sf::IntRect(character_textureSize.x * 6,character_textureSize.y * 4,character_textureSize.x,character_textureSize.y));
     
     this->spirit = tmpSpirit;
-    std::cout << "LUKE merhaba zalım dunya eved adım "<< this->name << std::endl;
+    std::cout << "MASTER merhaba zalım dunya eved adım "<< this->name << std::endl;
 }
 
 
@@ -34,5 +34,5 @@ MasterYoda::MasterYoda()
 
 MasterYoda::~MasterYoda()
 {
-    std::cout << "LUKE dunya meger sende bir hayalden ibaretmissin... " << this->name << std::endl;
+    std::cout << "MASTER dunya meger sende bir hayalden ibaretmissin... " << this->name << std::endl;
 }

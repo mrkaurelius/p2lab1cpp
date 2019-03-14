@@ -4,8 +4,18 @@
 #include <iostream>
 #include <bits/stdc++.h> 
 #include <SFML/Graphics.hpp>
+#include <deque> 
+
 //empty constructorda redefinition alıyorum  aceba legalmi 
 //empy constructor conksyon imzası ile ilgilimi ? 
+#define INF 2147483647
+
+struct node_t
+{
+    int x;
+    int y;
+    int counter;
+};
 
 class Character
 {
@@ -31,7 +41,6 @@ public:
     ~Character();
 
     const char *name;
-    std::vector<sf::Vector2f> shortestPath();
     void sayHello();
 };
 

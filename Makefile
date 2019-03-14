@@ -7,7 +7,7 @@ SFML_LIB_PATH = -L/home/mrk1debian/gelistirme/p2lab1cpp/SFML-2.5.1/lib
 SFML_INC_PATH = -I/home/mrk1debian/gelistirme/p2lab1cpp/SFML-2.5.1/include
 
 output: main.o  Character.o Stormtrooper.o KyloRen.o DarthVader.o LukeSkywalker.o MasterYoda.o
-	g++ main.o Character.o  Stormtrooper.o KyloRen.o DarthVader.o LukeSkywalker.o MasterYoda.o -o sfml-app $(SFML_LIB_PATH) -lsfml-graphics -lsfml-window -lsfml-system
+	g++ -Wall main.o Character.o  Stormtrooper.o KyloRen.o DarthVader.o LukeSkywalker.o MasterYoda.o -o  sfml-app $(SFML_LIB_PATH) -lsfml-graphics -lsfml-window -lsfml-system
 	#linking 
 
 main.o: main.cpp
