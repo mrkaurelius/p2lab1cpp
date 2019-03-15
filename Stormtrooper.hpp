@@ -13,6 +13,8 @@ public:
     std::vector <node_t> shortest_path;
 public:
     void moveRandom(int **gameBoardLogic);
+    void setName(const char *name);
+    const char* getName();
     std::vector <node_t> calcPath(int tx,int ty,int **gameBoardLogic);
 public:
     Stormtrooper(const char* name,int x,int y);

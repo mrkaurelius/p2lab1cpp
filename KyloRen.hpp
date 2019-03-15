@@ -14,6 +14,8 @@ public:
 public:
     void moveRandom(int **gameBoardLogic);
     std::vector <node_t> calcPath(int tx,int ty,int **gameBoardLogic);
+    void setName(const char *name);
+    const char* getName();
 public:
     KyloRen(const char* name,int x,int y);
     KyloRen(/* args */);

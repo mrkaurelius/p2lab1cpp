@@ -354,6 +354,14 @@ void KyloRen::moveRandom(int **gameBoardLogic){
 
    std::cout << "////////////////////////KYLOREN//////////////////////////" << std::endl;
 }
+void KyloRen::setName(const char *name){
+    this->name = name;
+}
+
+const char* KyloRen::getName(){
+    return this->name;
+}
+
 
 KyloRen::KyloRen()
 {

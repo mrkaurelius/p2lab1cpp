@@ -94,521 +94,436 @@ int main()
     texture_ref.loadFromFile("/home/mrk1debian/gelistirme/cpptut/media/sheet1.png");
     //texture_ref.loadFromFile("/home/mrk0debian/gelistirme/p2lab1cpp/media/sheet1.png");
 
-    MasterYoda c("MasterYoda",6,5);
-    c.spirit.setTexture(&player_texture);    
 
-    for(int i = 0; i < KyloV.size(); i++)
-    {
-        KyloRen *tp = KyloV[i]; 
-        tp->spirit.setTexture(&texture_ref);
-    }
-    
-    for(int i = 0; i < StormV.size(); i++)
-    {
-        Stormtrooper *tp = StormV[i]; 
-        tp->spirit.setTexture(&texture_ref);
-    }
-
-    for(int i = 0; i < DarthV.size(); i++)
-    {
-        DarthVader *tp = DarthV[i]; 
-        tp->spirit.setTexture(&texture_ref);
-    }
-
-
-    //texturede sıkıntı oluyor
-    //classa yazacagım move komutu ikisinide beraber götürsun grafik ve logic 
-
-    cout << "debug" << endl;
-    bool ENDROUND = false;
-
-    while (window.isOpen())
-    {   
-        //bağımsız hareket etdemyi dusun 
-        sf::Event event;
-
-        while (window.pollEvent(event))
-        {
-            if (event.type == sf::Event::Closed)
-                window.close();
-        }
+    cout << "KARAKTERNI SEC !! YODA:1 LUKE:2" << endl;
+    int chc;
+    cin >> chc;
+    int kx = 9;
+    int ky = 13;
+    if (chc == 1){
         
-        sf::Clock clock; // starts the clock
-        // clock cok sağlıklı calısmıyor
-
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left))
+        MasterYoda c = MasterYoda("MasterYoda",6,5);
+        c.spirit.setTexture(&player_texture);    
+        for(int i = 0; i < KyloV.size(); i++)
         {
-            sf::Time elapsed1 = clock.getElapsedTime();
-            //std::cout << elapsed1.asSeconds() << std::endl;
-            while(elapsed1.asSeconds() < 0.29){
-                elapsed1 = clock.getElapsedTime();
-            }
-            if (checkMove(c.logicX,c.logicY-1,gameBoardLogic)) {
-                c.moveLeft();
-                cout << endl;
-            }
-            printLogicMap(c.logicX,c.logicY,gameBoardLogic);
-
-            for(int i = 0; i < StormV.size(); i++)
-            {
-                Stormtrooper *tp = StormV[i]; 
-                if(tp->logicX == c.logicX && tp->logicY == c.logicY){
-                    cout << "yandın " << endl;
-                    ENDROUND = true;
-                    break;
-                    //exit(0);
-                }
-                tp->moveRandom(gameBoardLogic);
-                tp->shortest_path =  tp->calcPath(c.logicX,c.logicY,gameBoardLogic);
-                cout << "deneme" << endl;
-                //burada hesapla 
-                if(tp->logicX == c.logicX && tp->logicY == c.logicY){
-                    cout << "yandın " << endl;
-                    ENDROUND = true;
-                    break;
-                    //exit(0);
-                }
-            }
-            
-            for(int i = 0; i < KyloV.size(); i++)
-            {
-                KyloRen *tp = KyloV[i]; 
-                if(tp->logicX == c.logicX && tp->logicY == c.logicY){
-                    cout << "yandın " << endl;
-                    ENDROUND = true;
-                    break;
-                    //exit(0);
-                }
-                tp->moveRandom(gameBoardLogic);
-                tp->shortest_path =  tp->calcPath(c.logicX,c.logicY,gameBoardLogic);
-                if(tp->logicX == c.logicX && tp->logicY == c.logicY){
-                    cout << "yandın " << endl;
-                    ENDROUND = true;
-                    break;
-                    //exit(0);
-                }
-                if(tp->logicX == c.logicX && tp->logicY == c.logicY){
-                    cout << "yandın " << endl;
-                    ENDROUND = true;
-                    break;
-                    //exit(0);
-                }
-                tp->moveRandom(gameBoardLogic);
-                tp->shortest_path =  tp->calcPath(c.logicX,c.logicY,gameBoardLogic);
-                if(tp->logicX == c.logicX && tp->logicY == c.logicY){
-                    cout << "yandın " << endl;
-                    ENDROUND = true;
-                    break;
-                    //exit(0);
-                }
-                
-            }
-            
-            for(int i = 0; i < DarthV.size(); i++)
-            {
-                DarthVader *tp = DarthV[i]; 
-                if(tp->logicX == c.logicX && tp->logicY == c.logicY){
-                    cout << "yandın " << endl;
-                    ENDROUND = true;
-                    break;
-                    //exit(0);
-                }
-                tp->moveRandom(gameBoardLogic);
-                tp->shortest_path =  tp->calcPath(c.logicX,c.logicY);
-                if(tp->logicX == c.logicX && tp->logicY == c.logicY){
-                    cout << "yandın " << endl;
-                    ENDROUND = true;
-                    break;
-                    //exit(0);
-                }
-            }
-            clock.restart();
-            
+            KyloRen *tp = KyloV[i]; 
+            tp->spirit.setTexture(&texture_ref);
         }
-
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right))
-        {
-            sf::Time elapsed1 = clock.getElapsedTime();
-            //std::cout << elapsed1.asSeconds() << std::endl;
-            while(elapsed1.asSeconds() < 0.29){
-                elapsed1 = clock.getElapsedTime();
-            }         
-            if (checkMove(c.logicX,c.logicY+1,gameBoardLogic)) {
-                c.moveRight();
-                cout << endl;
-            }
-
-            printLogicMap(c.logicX,c.logicY,gameBoardLogic);
-            for(int i = 0; i < StormV.size(); i++)
-            {
-                
-                Stormtrooper *tp = StormV[i];
-                if(tp->logicX == c.logicX && tp->logicY == c.logicY){
-                    cout << "yandın " << endl;
-                    ENDROUND = true;
-                    break;
-                    //exit(0);
-                }                 
-                tp->moveRandom(gameBoardLogic);
-                tp->shortest_path =  tp->calcPath(c.logicX,c.logicY,gameBoardLogic);
-                if(tp->logicX == c.logicX && tp->logicY == c.logicY){
-                    cout << "yandın " << endl;
-                    ENDROUND = true;
-                    break;
-                    //exit(0);
-                }
-            }
-
-            for(int i = 0; i < KyloV.size(); i++)
-            {
-                KyloRen *tp = KyloV[i]; 
-                if(tp->logicX == c.logicX && tp->logicY == c.logicY){
-                    cout << "yandın " << endl;
-                    ENDROUND = true;
-                    break;
-                    //exit(0);
-                }
-                tp->moveRandom(gameBoardLogic);
-                tp->shortest_path =  tp->calcPath(c.logicX,c.logicY,gameBoardLogic);
-                if(tp->logicX == c.logicX && tp->logicY == c.logicY){
-                    cout << "yandın " << endl;
-                    ENDROUND = true;
-                    break;
-                    //exit(0);
-                }
-                if(tp->logicX == c.logicX && tp->logicY == c.logicY){
-                    cout << "yandın " << endl;
-                    ENDROUND = true;
-                    break;
-                    //exit(0);
-                }
-                tp->moveRandom(gameBoardLogic);
-                tp->shortest_path =  tp->calcPath(c.logicX,c.logicY,gameBoardLogic);
-                if(tp->logicX == c.logicX && tp->logicY == c.logicY){
-                    cout << "yandın " << endl;
-                    ENDROUND = true;
-                    break;
-                    //exit(0);
-                }                
-            }
-
-            for(int i = 0; i < DarthV.size(); i++)
-            {
-                DarthVader *tp = DarthV[i]; 
-                if(tp->logicX == c.logicX && tp->logicY == c.logicY){
-                    cout << "yandın " << endl;
-                    ENDROUND = true;
-                    break;
-                    //exit(0);
-                }
-                tp->moveRandom(gameBoardLogic);
-                if(tp->logicX == c.logicX && tp->logicY == c.logicY){
-                    cout << "yandın " << endl;
-                    ENDROUND = true;
-                    break;
-                    //exit(0);
-                }
-            }
-            clock.restart();
-        }      
-
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up))
-        {
-            sf::Time elapsed1 = clock.getElapsedTime();
-            //std::cout << elapsed1.asSeconds() << std::endl;
-            while(elapsed1.asSeconds() < 0.29){
-                elapsed1 = clock.getElapsedTime();
-            }
-            if (checkMove(c.logicX-1,c.logicY,gameBoardLogic)) {
-                c.moveUp();
-                cout << endl;                
-            }
-          
-            printLogicMap(c.logicX,c.logicY,gameBoardLogic);
-            for(int i = 0; i < StormV.size(); i++)
-            {
-                Stormtrooper *tp = StormV[i]; 
-                if(tp->logicX == c.logicX && tp->logicY == c.logicY){
-                    cout << "yandın " << endl;
-                    ENDROUND = true;
-                    break;
-
-                    //exit(0);
-                }                
-                tp->moveRandom(gameBoardLogic);
-                tp->shortest_path =  tp->calcPath(c.logicX,c.logicY,gameBoardLogic);
-                if(tp->logicX == c.logicX && tp->logicY == c.logicY){
-                    cout << "yandın " << endl;
-                    ENDROUND = true;
-                    break;
-                    
-                    //exit(0);
-                }                
-            }
-            for(int i = 0; i < KyloV.size(); i++)
-            {
-                KyloRen *tp = KyloV[i]; 
-                if(tp->logicX == c.logicX && tp->logicY == c.logicY){
-                    cout << "yandın " << endl;
-                    ENDROUND = true;
-                    break;
-                    
-                    //exit(0);
-                }
-                tp->moveRandom(gameBoardLogic);
-                tp->shortest_path =  tp->calcPath(c.logicX,c.logicY,gameBoardLogic);
-                if(tp->logicX == c.logicX && tp->logicY == c.logicY){
-                    cout << "yandın " << endl;
-                    ENDROUND = true;
-                    break;
-                    
-                    //exit(0);
-                }
-                if(tp->logicX == c.logicX && tp->logicY == c.logicY){
-                    cout << "yandın " << endl;
-                    ENDROUND = true;
-                    break;
-                    
-                    //exit(0);
-                }
-                tp->moveRandom(gameBoardLogic);
-                tp->shortest_path =  tp->calcPath(c.logicX,c.logicY,gameBoardLogic);
-                if(tp->logicX == c.logicX && tp->logicY == c.logicY){
-                    cout << "yandın " << endl;
-                    ENDROUND = true;
-                    break;
-                    
-                    //exit(0);
-                }                
-            }
-
-            for(int i = 0; i < DarthV.size(); i++)
-            {
-                DarthVader *tp = DarthV[i]; 
-                if(tp->logicX == c.logicX && tp->logicY == c.logicY){
-                    cout << "yandın " << endl;
-                    ENDROUND = true;
-                    break;
-                    
-                    //exit(0);
-                }
-                tp->moveRandom(gameBoardLogic);
-                if(tp->logicX == c.logicX && tp->logicY == c.logicY){
-                    cout << "yandın " << endl;
-                    ENDROUND = true;
-                    break;
-                    
-                    //exit(0);
-                }
-            }
-
-            clock.restart();
-
-        }
-
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down))
-        {
-            sf::Time elapsed1 = clock.getElapsedTime();
-            //std::cout << elapsed1.asSeconds() << std::endl;
-            while(elapsed1.asSeconds() < 0.29){
-                elapsed1 = clock.getElapsedTime();
-            }
-            if(checkMove(c.logicX+1,c.logicY,gameBoardLogic)) {
-                c.moveDown();
-                cout << endl;                
-            }        
-            printLogicMap(c.logicX,c.logicY,gameBoardLogic);
-            for(int i = 0; i < StormV.size(); i++)
-            {
-                Stormtrooper *tp = StormV[i]; 
-                if(tp->logicX == c.logicX && tp->logicY == c.logicY){
-                    cout << "yandın " << endl;
-                    ENDROUND = true;
-                    break;
-
-                    //exit(0);
-                }                
-                tp->moveRandom(gameBoardLogic);
-                tp->shortest_path =  tp->calcPath(c.logicX,c.logicY,gameBoardLogic);
-                if(tp->logicX == c.logicX && tp->logicY == c.logicY){
-                    cout << "yandın " << endl;
-                    ENDROUND = true;
-                    break;
-                    
-                    //exit(0);
-                }                
-            }
-
-            for(int i = 0; i < KyloV.size(); i++)
-            {
-                KyloRen *tp = KyloV[i]; 
-                if(tp->logicX == c.logicX && tp->logicY == c.logicY){
-                    cout << "yandın " << endl;
-                    ENDROUND = true;
-                    break;
-                    
-                    //exit(0);
-                }
-                tp->moveRandom(gameBoardLogic);
-                tp->shortest_path =  tp->calcPath(c.logicX,c.logicY,gameBoardLogic);
-                if(tp->logicX == c.logicX && tp->logicY == c.logicY){
-                    cout << "yandın " << endl;
-                    ENDROUND = true;
-                    break;
-                    
-                    //exit(0);
-                }
-                if(tp->logicX == c.logicX && tp->logicY == c.logicY){
-                    cout << "yandın " << endl;
-                    ENDROUND = true;
-                    break;
-                    
-                    //exit(0);
-                }
-                tp->moveRandom(gameBoardLogic);
-                tp->shortest_path =  tp->calcPath(c.logicX,c.logicY,gameBoardLogic);
-                if(tp->logicX == c.logicX && tp->logicY == c.logicY){
-                    cout << "yandın " << endl;
-                    ENDROUND = true;
-                    break;
-                    
-                    //exit(0);
-                }                
-            }
-
-            for(int i = 0; i < DarthV.size(); i++)
-            {
-                DarthVader *tp = DarthV[i]; 
-                if(tp->logicX == c.logicX && tp->logicY == c.logicY){
-                    cout << "yandın " << endl;
-                    ENDROUND = true;
-                    break;
-                    
-                    //exit(0);
-                }
-                tp->moveRandom(gameBoardLogic);
-                if(tp->logicX == c.logicX && tp->logicY == c.logicY){
-                    cout << "yandın " << endl;
-                    ENDROUND = true;
-                    break;
-                    
-                    //exit(0);
-                }
-            }
-
-            clock.restart();
-
-        }
-        
-        window.clear();
-
-        for(int i = 0; i < tileMap.size(); i++)
-        {
-            vector<sf::RectangleShape> tilemapRow = tileMap[i];
-            for(int j = 0; j < tilemapRow.size(); j++)
-            {
-
-                //duvarlara texture girdir 
-                if (gameBoardLogic[i][j] == 0) {
-
-                    tilemapRow[j].setTexture(&wall);
-                    tilemapRow[j].setTextureRect(sf::IntRect(wall_textureSize.x * 1,wall_textureSize.y * 3,wall_textureSize.x,wall_textureSize.y));
-                    window.draw(tilemapRow[j]);
-                    
-                } else {
-                    tilemapRow[j].setTexture(&road);
-                    tilemapRow[j].setTextureRect(sf::IntRect(road_textureSize.x * 2,road_textureSize.y * 1,road_textureSize.x,road_textureSize.y));
-                    window.draw(tilemapRow[j]);
-                }
-
-            }
-        }
-        //npc ve oyuncular buraya gelebilir 
-        // clear draw ve display olayını ogren 
-        window.draw(c.spirit);
-        //cout <<  c.logicX << "," << c.logicY << "|" << endl;
         
         for(int i = 0; i < StormV.size(); i++)
         {
             Stormtrooper *tp = StormV[i]; 
-
-            vector <sf::RectangleShape> path_graph;
-            for(int k = 0; k < tp->shortest_path.size(); k++)
-            {
-                node_t tmp_r = tp->shortest_path[k];
-                sf::RectangleShape tmp(sf::Vector2f(25.0f,25.0f));
-                tmp.setPosition(50 * (tmp_r.y) ,50 * tmp_r.x);
-                tmp.setFillColor(sf::Color::Red);
-                path_graph.push_back(tmp);
-            }
-
-            for(int ii = 0; ii < path_graph.size(); ii++)
-            {
-                window.draw(path_graph[ii]);
-            }
-            
-
-            window.draw(tp->spirit);
-        }
-
-        for(int i = 0; i < KyloV.size(); i++)
-        {
-            KyloRen *tp = KyloV[i]; 
-            vector <sf::RectangleShape> path_graph;
-            for(int k = 0; k < tp->shortest_path.size(); k++)
-            {
-                node_t tmp_r = tp->shortest_path[k];
-                sf::RectangleShape tmp(sf::Vector2f(25.0f,25.0f));
-                tmp.setPosition(50 * (tmp_r.y) ,50 * tmp_r.x);
-                tmp.setFillColor(sf::Color::Yellow);
-                path_graph.push_back(tmp);
-            }
-
-            for(int ii = 0; ii < path_graph.size(); ii++)
-            {
-                window.draw(path_graph[ii]);
-            }
-
-            window.draw(tp->spirit);
+            tp->spirit.setTexture(&texture_ref);
         }
 
         for(int i = 0; i < DarthV.size(); i++)
         {
             DarthVader *tp = DarthV[i]; 
-            vector <sf::RectangleShape> path_graph;
-            for(int k = 0; k < tp->shortest_path.size(); k++)
+            tp->spirit.setTexture(&texture_ref);
+        }
+
+
+        //texturede sıkıntı oluyor
+        //classa yazacagım move komutu ikisinide beraber götürsun grafik ve logic 
+
+        cout << "debug" << endl;
+        bool ENDROUND = false;
+
+
+        while (window.isOpen())
+        {   
+            //bağımsız hareket etdemyi dusun 
+            sf::Event event;
+            if(c.logicX == kx && c.logicY == ky ){
+                cout << "KAZANDIN BENDEN BU KADAR !!" << endl;
+                exit(0);
+            }
+            while (window.pollEvent(event))
             {
-                node_t tmp_r = tp->shortest_path[k];
-                sf::RectangleShape tmp(sf::Vector2f(25.0f,25.0f));
-                tmp.setPosition(50 * (tmp_r.y) ,50 * tmp_r.x);
-                tmp.setFillColor(sf::Color::Black);
-                path_graph.push_back(tmp);
+                if (event.type == sf::Event::Closed)
+                    window.close();
+            }
+            
+            sf::Clock clock; // starts the clock
+            // clock cok sağlıklı calısmıyor
+
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left))
+            {
+                sf::Time elapsed1 = clock.getElapsedTime();
+                //std::cout << elapsed1.asSeconds() << std::endl;
+                while(elapsed1.asSeconds() < 0.29){
+                    elapsed1 = clock.getElapsedTime();
+                }
+                if (checkMove(c.logicX,c.logicY-1,gameBoardLogic)) {
+                    c.moveLeft();
+                    cout << endl;
+                }
+                printLogicMap(c.logicX,c.logicY,gameBoardLogic);
+
+                for(int i = 0; i < StormV.size(); i++)
+                {
+                    Stormtrooper *tp = StormV[i]; 
+                    if(tp->logicX == c.logicX && tp->logicY == c.logicY){
+                        cout << "yandın " << endl;
+                        ENDROUND = true;
+                        break;
+                        //exit(0);
+                    }
+                    tp->moveRandom(gameBoardLogic);
+                    tp->shortest_path =  tp->calcPath(c.logicX,c.logicY,gameBoardLogic);
+                    //burada hesapla 
+                    if(tp->logicX == c.logicX && tp->logicY == c.logicY){
+                        cout << "yandın " << endl;
+                        ENDROUND = true;
+                        break;
+                        //exit(0);
+                    }
+                }
+                
+                for(int i = 0; i < KyloV.size(); i++)
+                {
+                    KyloRen *tp = KyloV[i]; 
+                    if(tp->logicX == c.logicX && tp->logicY == c.logicY){
+                        cout << "yandın " << endl;
+                        ENDROUND = true;
+                        break;
+                        //exit(0);
+                    }
+                    tp->moveRandom(gameBoardLogic);
+                    tp->shortest_path =  tp->calcPath(c.logicX,c.logicY,gameBoardLogic);
+                    if(tp->logicX == c.logicX && tp->logicY == c.logicY){
+                        cout << "yandın " << endl;
+                        ENDROUND = true;
+                        break;
+                        //exit(0);
+                    }
+                    if(tp->logicX == c.logicX && tp->logicY == c.logicY){
+                        cout << "yandın " << endl;
+                        ENDROUND = true;
+                        break;
+                        //exit(0);
+                    }
+                    tp->moveRandom(gameBoardLogic);
+                    tp->shortest_path =  tp->calcPath(c.logicX,c.logicY,gameBoardLogic);
+                    if(tp->logicX == c.logicX && tp->logicY == c.logicY){
+                        cout << "yandın " << endl;
+                        ENDROUND = true;
+                        break;
+                        //exit(0);
+                    }
+                    
+                }
+                
+                for(int i = 0; i < DarthV.size(); i++)
+                {
+                    DarthVader *tp = DarthV[i]; 
+                    if(tp->logicX == c.logicX && tp->logicY == c.logicY){
+                        cout << "yandın " << endl;
+                        ENDROUND = true;
+                        break;
+                        //exit(0);
+                    }
+                    tp->moveRandom(gameBoardLogic);
+                    tp->shortest_path =  tp->calcPath(c.logicX,c.logicY);
+                    if(tp->logicX == c.logicX && tp->logicY == c.logicY){
+                        cout << "yandın " << endl;
+                        ENDROUND = true;
+                        break;
+                        //exit(0);
+                    }
+                }
+                clock.restart();
+                
             }
 
-            for(int ii = 0; ii < path_graph.size(); ii++)
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right))
             {
-                window.draw(path_graph[ii]);
-            }            
-            window.draw(tp->spirit);
-        }        
-        
-        //KISAYOLLARI GOSTER 
-        //FOR VECTOR .SHORTESTPATH 
-        
-        window.display();
-        
-        //render ve logic sırası cnasıl olmalı, aradaki zaman nasıl ayarlanamalı
-        if (ENDROUND) {
+                sf::Time elapsed1 = clock.getElapsedTime();
+                //std::cout << elapsed1.asSeconds() << std::endl;
+                while(elapsed1.asSeconds() < 0.29){
+                    elapsed1 = clock.getElapsedTime();
+                }         
+                if (checkMove(c.logicX,c.logicY+1,gameBoardLogic)) {
+                    c.moveRight();
+                    cout << endl;
+                }
+
+                printLogicMap(c.logicX,c.logicY,gameBoardLogic);
+                for(int i = 0; i < StormV.size(); i++)
+                {
+                    
+                    Stormtrooper *tp = StormV[i];
+                    if(tp->logicX == c.logicX && tp->logicY == c.logicY){
+                        cout << "yandın " << endl;
+                        ENDROUND = true;
+                        break;
+                        //exit(0);
+                    }                 
+                    tp->moveRandom(gameBoardLogic);
+                    tp->shortest_path =  tp->calcPath(c.logicX,c.logicY,gameBoardLogic);
+                    if(tp->logicX == c.logicX && tp->logicY == c.logicY){
+                        cout << "yandın " << endl;
+                        ENDROUND = true;
+                        break;
+                        //exit(0);
+                    }
+                }
+
+                for(int i = 0; i < KyloV.size(); i++)
+                {
+                    KyloRen *tp = KyloV[i]; 
+                    if(tp->logicX == c.logicX && tp->logicY == c.logicY){
+                        cout << "yandın " << endl;
+                        ENDROUND = true;
+                        break;
+                        //exit(0);
+                    }
+                    tp->moveRandom(gameBoardLogic);
+                    tp->shortest_path =  tp->calcPath(c.logicX,c.logicY,gameBoardLogic);
+                    if(tp->logicX == c.logicX && tp->logicY == c.logicY){
+                        cout << "yandın " << endl;
+                        ENDROUND = true;
+                        break;
+                        //exit(0);
+                    }
+                    if(tp->logicX == c.logicX && tp->logicY == c.logicY){
+                        cout << "yandın " << endl;
+                        ENDROUND = true;
+                        break;
+                        //exit(0);
+                    }
+                    tp->moveRandom(gameBoardLogic);
+                    tp->shortest_path =  tp->calcPath(c.logicX,c.logicY,gameBoardLogic);
+                    if(tp->logicX == c.logicX && tp->logicY == c.logicY){
+                        cout << "yandın " << endl;
+                        ENDROUND = true;
+                        break;
+                        //exit(0);
+                    }                
+                }
+
+                for(int i = 0; i < DarthV.size(); i++)
+                {
+                    DarthVader *tp = DarthV[i]; 
+                    if(tp->logicX == c.logicX && tp->logicY == c.logicY){
+                        cout << "yandın " << endl;
+                        ENDROUND = true;
+                        break;
+                        //exit(0);
+                    }
+                    tp->moveRandom(gameBoardLogic);
+                    tp->shortest_path =  tp->calcPath(c.logicX,c.logicY);
+                    if(tp->logicX == c.logicX && tp->logicY == c.logicY){
+                        cout << "yandın " << endl;
+                        ENDROUND = true;
+                        break;
+                        //exit(0);
+                    }
+                }
+                clock.restart();
+            }      
+
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up))
+            {
+                sf::Time elapsed1 = clock.getElapsedTime();
+                //std::cout << elapsed1.asSeconds() << std::endl;
+                while(elapsed1.asSeconds() < 0.29){
+                    elapsed1 = clock.getElapsedTime();
+                }
+                if (checkMove(c.logicX-1,c.logicY,gameBoardLogic)) {
+                    c.moveUp();
+                    cout << endl;                
+                }
+            
+                printLogicMap(c.logicX,c.logicY,gameBoardLogic);
+                for(int i = 0; i < StormV.size(); i++)
+                {
+                    Stormtrooper *tp = StormV[i]; 
+                    if(tp->logicX == c.logicX && tp->logicY == c.logicY){
+                        cout << "yandın " << endl;
+                        ENDROUND = true;
+                        break;
+
+                        //exit(0);
+                    }                
+                    tp->moveRandom(gameBoardLogic);
+                    tp->shortest_path =  tp->calcPath(c.logicX,c.logicY,gameBoardLogic);
+                    if(tp->logicX == c.logicX && tp->logicY == c.logicY){
+                        cout << "yandın " << endl;
+                        ENDROUND = true;
+                        break;
+                        
+                        //exit(0);
+                    }                
+                }
+                for(int i = 0; i < KyloV.size(); i++)
+                {
+                    KyloRen *tp = KyloV[i]; 
+                    if(tp->logicX == c.logicX && tp->logicY == c.logicY){
+                        cout << "yandın " << endl;
+                        ENDROUND = true;
+                        break;
+                        
+                        //exit(0);
+                    }
+                    tp->moveRandom(gameBoardLogic);
+                    tp->shortest_path =  tp->calcPath(c.logicX,c.logicY,gameBoardLogic);
+                    if(tp->logicX == c.logicX && tp->logicY == c.logicY){
+                        cout << "yandın " << endl;
+                        ENDROUND = true;
+                        break;
+                        
+                        //exit(0);
+                    }
+                    if(tp->logicX == c.logicX && tp->logicY == c.logicY){
+                        cout << "yandın " << endl;
+                        ENDROUND = true;
+                        break;
+                        
+                        //exit(0);
+                    }
+                    tp->moveRandom(gameBoardLogic);
+                    tp->shortest_path =  tp->calcPath(c.logicX,c.logicY,gameBoardLogic);
+                    if(tp->logicX == c.logicX && tp->logicY == c.logicY){
+                        cout << "yandın " << endl;
+                        ENDROUND = true;
+                        break;
+                        
+                        //exit(0);
+                    }                
+                }
+
+                for(int i = 0; i < DarthV.size(); i++)
+                {
+                    DarthVader *tp = DarthV[i]; 
+                    if(tp->logicX == c.logicX && tp->logicY == c.logicY){
+                        cout << "yandın " << endl;
+                        ENDROUND = true;
+                        break;
+                        
+                        //exit(0);
+                    }
+                    tp->moveRandom(gameBoardLogic);
+                    tp->shortest_path =  tp->calcPath(c.logicX,c.logicY);
+                    if(tp->logicX == c.logicX && tp->logicY == c.logicY){
+                        cout << "yandın " << endl;
+                        ENDROUND = true;
+                        break;
+                        
+                        //exit(0);
+                    }
+                }
+
+                clock.restart();
+
+            }
+
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down))
+            {
+                sf::Time elapsed1 = clock.getElapsedTime();
+                //std::cout << elapsed1.asSeconds() << std::endl;
+                while(elapsed1.asSeconds() < 0.29){
+                    elapsed1 = clock.getElapsedTime();
+                }
+                if(checkMove(c.logicX+1,c.logicY,gameBoardLogic)) {
+                    c.moveDown();
+                    cout << endl;                
+                }        
+                printLogicMap(c.logicX,c.logicY,gameBoardLogic);
+                for(int i = 0; i < StormV.size(); i++)
+                {
+                    Stormtrooper *tp = StormV[i]; 
+                    if(tp->logicX == c.logicX && tp->logicY == c.logicY){
+                        cout << "yandın " << endl;
+                        ENDROUND = true;
+                        break;
+
+                        //exit(0);
+                    }                
+                    tp->moveRandom(gameBoardLogic);
+                    tp->shortest_path =  tp->calcPath(c.logicX,c.logicY,gameBoardLogic);
+                    if(tp->logicX == c.logicX && tp->logicY == c.logicY){
+                        cout << "yandın " << endl;
+                        ENDROUND = true;
+                        break;
+                        
+                        //exit(0);
+                    }                
+                }
+
+                for(int i = 0; i < KyloV.size(); i++)
+                {
+                    KyloRen *tp = KyloV[i]; 
+                    if(tp->logicX == c.logicX && tp->logicY == c.logicY){
+                        cout << "yandın " << endl;
+                        ENDROUND = true;
+                        break;
+                        
+                        //exit(0);
+                    }
+                    tp->moveRandom(gameBoardLogic);
+                    tp->shortest_path =  tp->calcPath(c.logicX,c.logicY,gameBoardLogic);
+                    if(tp->logicX == c.logicX && tp->logicY == c.logicY){
+                        cout << "yandın " << endl;
+                        ENDROUND = true;
+                        break;
+                        
+                        //exit(0);
+                    }
+                    if(tp->logicX == c.logicX && tp->logicY == c.logicY){
+                        cout << "yandın " << endl;
+                        ENDROUND = true;
+                        break;
+                        
+                        //exit(0);
+                    }
+                    tp->moveRandom(gameBoardLogic);
+                    tp->shortest_path =  tp->calcPath(c.logicX,c.logicY,gameBoardLogic);
+                    if(tp->logicX == c.logicX && tp->logicY == c.logicY){
+                        cout << "yandın " << endl;
+                        ENDROUND = true;
+                        break;
+                        
+                        //exit(0);
+                    }                
+                }
+
+                for(int i = 0; i < DarthV.size(); i++)
+                {
+                    DarthVader *tp = DarthV[i]; 
+                    if(tp->logicX == c.logicX && tp->logicY == c.logicY){
+                        cout << "yandın " << endl;
+                        ENDROUND = true;
+                        break;
+                        
+                        //exit(0);
+                    }
+                    tp->moveRandom(gameBoardLogic);
+                    tp->shortest_path =  tp->calcPath(c.logicX,c.logicY);
+                    if(tp->logicX == c.logicX && tp->logicY == c.logicY){
+                        cout << "yandın " << endl;
+                        ENDROUND = true;
+                        break;
+                        
+                        //exit(0);
+                    }
+                }
+
+                clock.restart();
+
+            }
+            
             window.clear();
 
-            window.draw(c.spirit);
             for(int i = 0; i < tileMap.size(); i++)
             {
                 vector<sf::RectangleShape> tilemapRow = tileMap[i];
                 for(int j = 0; j < tilemapRow.size(); j++)
                 {
+
                     //duvarlara texture girdir 
                     if (gameBoardLogic[i][j] == 0) {
+
                         tilemapRow[j].setTexture(&wall);
                         tilemapRow[j].setTextureRect(sf::IntRect(wall_textureSize.x * 1,wall_textureSize.y * 3,wall_textureSize.x,wall_textureSize.y));
                         window.draw(tilemapRow[j]);
@@ -618,45 +533,724 @@ int main()
                         tilemapRow[j].setTextureRect(sf::IntRect(road_textureSize.x * 2,road_textureSize.y * 1,road_textureSize.x,road_textureSize.y));
                         window.draw(tilemapRow[j]);
                     }
+
                 }
-            }            
+            }
+            window.draw(c.spirit);
+            //  canları çiz
+            for(int i = 0; i < c.healt; i++)
+            {
+                sf::RectangleShape tmp(sf::Vector2f(25.0f,25.0f));
+                tmp.setPosition(50 * i ,600);
+                tmp.setFillColor(sf::Color::Red);
+                window.draw(tmp);
+            }
+            
+
             for(int i = 0; i < StormV.size(); i++)
             {
                 Stormtrooper *tp = StormV[i]; 
+
+                vector <sf::RectangleShape> path_graph;
+                for(int k = 0; k < tp->shortest_path.size(); k++)
+                {
+                    node_t tmp_r = tp->shortest_path[k];
+                    sf::RectangleShape tmp(sf::Vector2f(25.0f,25.0f));
+                    tmp.setPosition(50 * (tmp_r.y) ,50 * tmp_r.x);
+                    tmp.setFillColor(sf::Color::Red);
+                    path_graph.push_back(tmp);
+                }
+
+                for(int ii = 0; ii < path_graph.size(); ii++)
+                {
+                    window.draw(path_graph[ii]);
+                }
+                
+
                 window.draw(tp->spirit);
             }
 
             for(int i = 0; i < KyloV.size(); i++)
             {
                 KyloRen *tp = KyloV[i]; 
+                vector <sf::RectangleShape> path_graph;
+                for(int k = 0; k < tp->shortest_path.size(); k++)
+                {
+                    node_t tmp_r = tp->shortest_path[k];
+                    sf::RectangleShape tmp(sf::Vector2f(25.0f,25.0f));
+                    tmp.setPosition(50 * (tmp_r.y) + 25 ,50 * tmp_r.x);
+                    tmp.setFillColor(sf::Color::Yellow);
+                    path_graph.push_back(tmp);
+                }
+
+                for(int ii = 0; ii < path_graph.size(); ii++)
+                {
+                    window.draw(path_graph[ii]);
+                }
+
                 window.draw(tp->spirit);
             }
 
             for(int i = 0; i < DarthV.size(); i++)
             {
                 DarthVader *tp = DarthV[i]; 
+                vector <sf::RectangleShape> path_graph;
+                for(int k = 0; k < tp->shortest_path.size(); k++)
+                {
+                    node_t tmp_r = tp->shortest_path[k];
+                    sf::RectangleShape tmp(sf::Vector2f(25.0f,25.0f));
+                    tmp.setPosition(50 * (tmp_r.y) ,50 * tmp_r.x + 25);
+                    tmp.setFillColor(sf::Color::Black);
+                    path_graph.push_back(tmp);
+                }
+
+                for(int ii = 0; ii < path_graph.size(); ii++)
+                {
+                    window.draw(path_graph[ii]);
+                }            
                 window.draw(tp->spirit);
-            }              
-
+            }        
+            
+            
             window.display();
+            ////////////////////////////////////////////////////////////////////////
+            if (ENDROUND) {
+                window.clear();
 
-            clock.restart();
-            sf::Time elapsed1 = clock.getElapsedTime();
-            //std::cout << elapsed1.asSeconds() << std::endl;
-            while(elapsed1.asSeconds() < 2){
-                elapsed1 = clock.getElapsedTime();
+                window.draw(c.spirit);
+                for(int i = 0; i < tileMap.size(); i++)
+                {
+                    vector<sf::RectangleShape> tilemapRow = tileMap[i];
+                    for(int j = 0; j < tilemapRow.size(); j++)
+                    {
+                        //duvarlara texture girdir 
+                        if (gameBoardLogic[i][j] == 0) {
+                            tilemapRow[j].setTexture(&wall);
+                            tilemapRow[j].setTextureRect(sf::IntRect(wall_textureSize.x * 1,wall_textureSize.y * 3,wall_textureSize.x,wall_textureSize.y));
+                            window.draw(tilemapRow[j]);
+                            
+                        } else {
+                            tilemapRow[j].setTexture(&road);
+                            tilemapRow[j].setTextureRect(sf::IntRect(road_textureSize.x * 2,road_textureSize.y * 1,road_textureSize.x,road_textureSize.y));
+                            window.draw(tilemapRow[j]);
+                        }
+                    }
+                }            
+                for(int i = 0; i < StormV.size(); i++)
+                {
+                    Stormtrooper *tp = StormV[i]; 
+                    window.draw(tp->spirit);
+                }
+
+                for(int i = 0; i < KyloV.size(); i++)
+                {
+                    KyloRen *tp = KyloV[i]; 
+                    window.draw(tp->spirit);
+                }
+
+                for(int i = 0; i < DarthV.size(); i++)
+                {
+                    DarthVader *tp = DarthV[i]; 
+                    window.draw(tp->spirit);
+                }              
+
+                window.display();
+
+                clock.restart();
+                sf::Time elapsed1 = clock.getElapsedTime();
+                //std::cout << elapsed1.asSeconds() << std::endl;
+                while(elapsed1.asSeconds() < 2){
+                    elapsed1 = clock.getElapsedTime();
+                }
+                //levele reset at
+                resetRound(&c,DarthV,KyloV,StormV);
+                ENDROUND = false;
+                c.healt--;
+                // burayı daha sofistike yap 
+                if(c.healt == 0){
+                    cout << "GAMEOVER" << endl;
+                    exit(0);             
+                } 
             }
-            //levele reset at
-            resetRound(&c,DarthV,KyloV,StormV);
-            ENDROUND = false;
-            c.healt--;
-            // burayı daha sofistike yap 
-            if(c.healt == 0){
-                cout << "GAMEOVER" << endl;
-                exit(0);             
-            } 
         }
     }
+    if(chc == 2){
+        LukeSkywalker c = LukeSkywalker("MasterYoda",6,5);
+        c.spirit.setTexture(&player_texture);    
+        for(int i = 0; i < KyloV.size(); i++)
+        {
+            KyloRen *tp = KyloV[i]; 
+            tp->spirit.setTexture(&texture_ref);
+        }
+        
+        for(int i = 0; i < StormV.size(); i++)
+        {
+            Stormtrooper *tp = StormV[i]; 
+            tp->spirit.setTexture(&texture_ref);
+        }
+
+        for(int i = 0; i < DarthV.size(); i++)
+        {
+            DarthVader *tp = DarthV[i]; 
+            tp->spirit.setTexture(&texture_ref);
+        }
+
+
+        //texturede sıkıntı oluyor
+        //classa yazacagım move komutu ikisinide beraber götürsun grafik ve logic 
+
+        cout << "debug" << endl;
+        bool ENDROUND = false;
+
+        while (window.isOpen())
+        {   
+            if(c.logicX == kx && c.logicY == ky ){
+                cout << "KAZANDIN BENDEN BU KADAR !!" << endl;
+                exit(0);
+            }
+            //bağımsız hareket etdemyi dusun 
+            sf::Event event;
+
+            while (window.pollEvent(event))
+            {
+                if (event.type == sf::Event::Closed)
+                    window.close();
+            }
+            
+            sf::Clock clock; // starts the clock
+            // clock cok sağlıklı calısmıyor
+
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left))
+            {
+                sf::Time elapsed1 = clock.getElapsedTime();
+                //std::cout << elapsed1.asSeconds() << std::endl;
+                while(elapsed1.asSeconds() < 0.29){
+                    elapsed1 = clock.getElapsedTime();
+                }
+                if (checkMove(c.logicX,c.logicY-1,gameBoardLogic)) {
+                    c.moveLeft();
+                    cout << endl;
+                }
+                printLogicMap(c.logicX,c.logicY,gameBoardLogic);
+
+                for(int i = 0; i < StormV.size(); i++)
+                {
+                    Stormtrooper *tp = StormV[i]; 
+                    if(tp->logicX == c.logicX && tp->logicY == c.logicY){
+                        cout << "yandın " << endl;
+                        ENDROUND = true;
+                        break;
+                        //exit(0);
+                    }
+                    tp->moveRandom(gameBoardLogic);
+                    tp->shortest_path =  tp->calcPath(c.logicX,c.logicY,gameBoardLogic);
+                    //burada hesapla 
+                    if(tp->logicX == c.logicX && tp->logicY == c.logicY){
+                        cout << "yandın " << endl;
+                        ENDROUND = true;
+                        break;
+                        //exit(0);
+                    }
+                }
+                
+                for(int i = 0; i < KyloV.size(); i++)
+                {
+                    KyloRen *tp = KyloV[i]; 
+                    if(tp->logicX == c.logicX && tp->logicY == c.logicY){
+                        cout << "yandın " << endl;
+                        ENDROUND = true;
+                        break;
+                        //exit(0);
+                    }
+                    tp->moveRandom(gameBoardLogic);
+                    tp->shortest_path =  tp->calcPath(c.logicX,c.logicY,gameBoardLogic);
+                    if(tp->logicX == c.logicX && tp->logicY == c.logicY){
+                        cout << "yandın " << endl;
+                        ENDROUND = true;
+                        break;
+                        //exit(0);
+                    }
+                    if(tp->logicX == c.logicX && tp->logicY == c.logicY){
+                        cout << "yandın " << endl;
+                        ENDROUND = true;
+                        break;
+                        //exit(0);
+                    }
+                    tp->moveRandom(gameBoardLogic);
+                    tp->shortest_path =  tp->calcPath(c.logicX,c.logicY,gameBoardLogic);
+                    if(tp->logicX == c.logicX && tp->logicY == c.logicY){
+                        cout << "yandın " << endl;
+                        ENDROUND = true;
+                        break;
+                        //exit(0);
+                    }
+                    
+                }
+                
+                for(int i = 0; i < DarthV.size(); i++)
+                {
+                    DarthVader *tp = DarthV[i]; 
+                    if(tp->logicX == c.logicX && tp->logicY == c.logicY){
+                        cout << "yandın " << endl;
+                        ENDROUND = true;
+                        break;
+                        //exit(0);
+                    }
+                    tp->moveRandom(gameBoardLogic);
+                    tp->shortest_path =  tp->calcPath(c.logicX,c.logicY);
+                    if(tp->logicX == c.logicX && tp->logicY == c.logicY){
+                        cout << "yandın " << endl;
+                        ENDROUND = true;
+                        break;
+                        //exit(0);
+                    }
+                }
+                clock.restart();
+                
+            }
+
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right))
+            {
+                sf::Time elapsed1 = clock.getElapsedTime();
+                //std::cout << elapsed1.asSeconds() << std::endl;
+                while(elapsed1.asSeconds() < 0.29){
+                    elapsed1 = clock.getElapsedTime();
+                }         
+                if (checkMove(c.logicX,c.logicY+1,gameBoardLogic)) {
+                    c.moveRight();
+                    cout << endl;
+                }
+
+                printLogicMap(c.logicX,c.logicY,gameBoardLogic);
+                for(int i = 0; i < StormV.size(); i++)
+                {
+                    
+                    Stormtrooper *tp = StormV[i];
+                    if(tp->logicX == c.logicX && tp->logicY == c.logicY){
+                        cout << "yandın " << endl;
+                        ENDROUND = true;
+                        break;
+                        //exit(0);
+                    }                 
+                    tp->moveRandom(gameBoardLogic);
+                    tp->shortest_path =  tp->calcPath(c.logicX,c.logicY,gameBoardLogic);
+                    if(tp->logicX == c.logicX && tp->logicY == c.logicY){
+                        cout << "yandın " << endl;
+                        ENDROUND = true;
+                        break;
+                        //exit(0);
+                    }
+                }
+
+                for(int i = 0; i < KyloV.size(); i++)
+                {
+                    KyloRen *tp = KyloV[i]; 
+                    if(tp->logicX == c.logicX && tp->logicY == c.logicY){
+                        cout << "yandın " << endl;
+                        ENDROUND = true;
+                        break;
+                        //exit(0);
+                    }
+                    tp->moveRandom(gameBoardLogic);
+                    tp->shortest_path =  tp->calcPath(c.logicX,c.logicY,gameBoardLogic);
+                    if(tp->logicX == c.logicX && tp->logicY == c.logicY){
+                        cout << "yandın " << endl;
+                        ENDROUND = true;
+                        break;
+                        //exit(0);
+                    }
+                    if(tp->logicX == c.logicX && tp->logicY == c.logicY){
+                        cout << "yandın " << endl;
+                        ENDROUND = true;
+                        break;
+                        //exit(0);
+                    }
+                    tp->moveRandom(gameBoardLogic);
+                    tp->shortest_path =  tp->calcPath(c.logicX,c.logicY,gameBoardLogic);
+                    if(tp->logicX == c.logicX && tp->logicY == c.logicY){
+                        cout << "yandın " << endl;
+                        ENDROUND = true;
+                        break;
+                        //exit(0);
+                    }                
+                }
+
+                for(int i = 0; i < DarthV.size(); i++)
+                {
+                    DarthVader *tp = DarthV[i]; 
+                    if(tp->logicX == c.logicX && tp->logicY == c.logicY){
+                        cout << "yandın " << endl;
+                        ENDROUND = true;
+                        break;
+                        //exit(0);
+                    }
+                    tp->moveRandom(gameBoardLogic);
+                    tp->shortest_path =  tp->calcPath(c.logicX,c.logicY);
+                    if(tp->logicX == c.logicX && tp->logicY == c.logicY){
+                        cout << "yandın " << endl;
+                        ENDROUND = true;
+                        break;
+                        //exit(0);
+                    }
+                }
+                clock.restart();
+            }      
+
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up))
+            {
+                sf::Time elapsed1 = clock.getElapsedTime();
+                //std::cout << elapsed1.asSeconds() << std::endl;
+                while(elapsed1.asSeconds() < 0.29){
+                    elapsed1 = clock.getElapsedTime();
+                }
+                if (checkMove(c.logicX-1,c.logicY,gameBoardLogic)) {
+                    c.moveUp();
+                    cout << endl;                
+                }
+            
+                printLogicMap(c.logicX,c.logicY,gameBoardLogic);
+                for(int i = 0; i < StormV.size(); i++)
+                {
+                    Stormtrooper *tp = StormV[i]; 
+                    if(tp->logicX == c.logicX && tp->logicY == c.logicY){
+                        cout << "yandın " << endl;
+                        ENDROUND = true;
+                        break;
+
+                        //exit(0);
+                    }                
+                    tp->moveRandom(gameBoardLogic);
+                    tp->shortest_path =  tp->calcPath(c.logicX,c.logicY,gameBoardLogic);
+                    if(tp->logicX == c.logicX && tp->logicY == c.logicY){
+                        cout << "yandın " << endl;
+                        ENDROUND = true;
+                        break;
+                        
+                        //exit(0);
+                    }                
+                }
+                for(int i = 0; i < KyloV.size(); i++)
+                {
+                    KyloRen *tp = KyloV[i]; 
+                    if(tp->logicX == c.logicX && tp->logicY == c.logicY){
+                        cout << "yandın " << endl;
+                        ENDROUND = true;
+                        break;
+                        
+                        //exit(0);
+                    }
+                    tp->moveRandom(gameBoardLogic);
+                    tp->shortest_path =  tp->calcPath(c.logicX,c.logicY,gameBoardLogic);
+                    if(tp->logicX == c.logicX && tp->logicY == c.logicY){
+                        cout << "yandın " << endl;
+                        ENDROUND = true;
+                        break;
+                        
+                        //exit(0);
+                    }
+                    if(tp->logicX == c.logicX && tp->logicY == c.logicY){
+                        cout << "yandın " << endl;
+                        ENDROUND = true;
+                        break;
+                        
+                        //exit(0);
+                    }
+                    tp->moveRandom(gameBoardLogic);
+                    tp->shortest_path =  tp->calcPath(c.logicX,c.logicY,gameBoardLogic);
+                    if(tp->logicX == c.logicX && tp->logicY == c.logicY){
+                        cout << "yandın " << endl;
+                        ENDROUND = true;
+                        break;
+                        
+                        //exit(0);
+                    }                
+                }
+
+                for(int i = 0; i < DarthV.size(); i++)
+                {
+                    DarthVader *tp = DarthV[i]; 
+                    if(tp->logicX == c.logicX && tp->logicY == c.logicY){
+                        cout << "yandın " << endl;
+                        ENDROUND = true;
+                        break;
+                        
+                        //exit(0);
+                    }
+                    tp->moveRandom(gameBoardLogic);
+                    tp->shortest_path =  tp->calcPath(c.logicX,c.logicY);
+                    if(tp->logicX == c.logicX && tp->logicY == c.logicY){
+                        cout << "yandın " << endl;
+                        ENDROUND = true;
+                        break;
+                        
+                        //exit(0);
+                    }
+                }
+
+                clock.restart();
+
+            }
+
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down))
+            {
+                sf::Time elapsed1 = clock.getElapsedTime();
+                //std::cout << elapsed1.asSeconds() << std::endl;
+                while(elapsed1.asSeconds() < 0.29){
+                    elapsed1 = clock.getElapsedTime();
+                }
+                if(checkMove(c.logicX+1,c.logicY,gameBoardLogic)) {
+                    c.moveDown();
+                    cout << endl;                
+                }        
+                printLogicMap(c.logicX,c.logicY,gameBoardLogic);
+                for(int i = 0; i < StormV.size(); i++)
+                {
+                    Stormtrooper *tp = StormV[i]; 
+                    if(tp->logicX == c.logicX && tp->logicY == c.logicY){
+                        cout << "yandın " << endl;
+                        ENDROUND = true;
+                        break;
+
+                        //exit(0);
+                    }                
+                    tp->moveRandom(gameBoardLogic);
+                    tp->shortest_path =  tp->calcPath(c.logicX,c.logicY,gameBoardLogic);
+                    if(tp->logicX == c.logicX && tp->logicY == c.logicY){
+                        cout << "yandın " << endl;
+                        ENDROUND = true;
+                        break;
+                        
+                        //exit(0);
+                    }                
+                }
+
+                for(int i = 0; i < KyloV.size(); i++)
+                {
+                    KyloRen *tp = KyloV[i]; 
+                    if(tp->logicX == c.logicX && tp->logicY == c.logicY){
+                        cout << "yandın " << endl;
+                        ENDROUND = true;
+                        break;
+                        
+                        //exit(0);
+                    }
+                    tp->moveRandom(gameBoardLogic);
+                    tp->shortest_path =  tp->calcPath(c.logicX,c.logicY,gameBoardLogic);
+                    if(tp->logicX == c.logicX && tp->logicY == c.logicY){
+                        cout << "yandın " << endl;
+                        ENDROUND = true;
+                        break;
+                        
+                        //exit(0);
+                    }
+                    if(tp->logicX == c.logicX && tp->logicY == c.logicY){
+                        cout << "yandın " << endl;
+                        ENDROUND = true;
+                        break;
+                        
+                        //exit(0);
+                    }
+                    tp->moveRandom(gameBoardLogic);
+                    tp->shortest_path =  tp->calcPath(c.logicX,c.logicY,gameBoardLogic);
+                    if(tp->logicX == c.logicX && tp->logicY == c.logicY){
+                        cout << "yandın " << endl;
+                        ENDROUND = true;
+                        break;
+                        
+                        //exit(0);
+                    }                
+                }
+
+                for(int i = 0; i < DarthV.size(); i++)
+                {
+                    DarthVader *tp = DarthV[i]; 
+                    if(tp->logicX == c.logicX && tp->logicY == c.logicY){
+                        cout << "yandın " << endl;
+                        ENDROUND = true;
+                        break;
+                        
+                        //exit(0);
+                    }
+                    tp->moveRandom(gameBoardLogic);
+                    tp->shortest_path =  tp->calcPath(c.logicX,c.logicY);
+                    if(tp->logicX == c.logicX && tp->logicY == c.logicY){
+                        cout << "yandın " << endl;
+                        ENDROUND = true;
+                        break;
+                        
+                        //exit(0);
+                    }
+                }
+
+                clock.restart();
+
+            }
+            
+            window.clear();
+
+            for(int i = 0; i < tileMap.size(); i++)
+            {
+                vector<sf::RectangleShape> tilemapRow = tileMap[i];
+                for(int j = 0; j < tilemapRow.size(); j++)
+                {
+
+                    //duvarlara texture girdir 
+                    if (gameBoardLogic[i][j] == 0) {
+
+                        tilemapRow[j].setTexture(&wall);
+                        tilemapRow[j].setTextureRect(sf::IntRect(wall_textureSize.x * 1,wall_textureSize.y * 3,wall_textureSize.x,wall_textureSize.y));
+                        window.draw(tilemapRow[j]);
+                        
+                    } else {
+                        tilemapRow[j].setTexture(&road);
+                        tilemapRow[j].setTextureRect(sf::IntRect(road_textureSize.x * 2,road_textureSize.y * 1,road_textureSize.x,road_textureSize.y));
+                        window.draw(tilemapRow[j]);
+                    }
+
+                }
+            }
+            window.draw(c.spirit);
+            
+            for(int i = 0; i < c.healt; i++)
+            {
+                sf::RectangleShape tmp(sf::Vector2f(25.0f,25.0f));
+                tmp.setPosition(50 * i ,600);
+                tmp.setFillColor(sf::Color::Red);
+                window.draw(tmp);
+            }
+
+            for(int i = 0; i < StormV.size(); i++)
+            {
+                Stormtrooper *tp = StormV[i]; 
+
+                vector <sf::RectangleShape> path_graph;
+                for(int k = 0; k < tp->shortest_path.size(); k++)
+                {
+                    node_t tmp_r = tp->shortest_path[k];
+                    sf::RectangleShape tmp(sf::Vector2f(25.0f,25.0f));
+                    tmp.setPosition(50 * (tmp_r.y) ,50 * tmp_r.x);
+                    tmp.setFillColor(sf::Color::Red);
+                    path_graph.push_back(tmp);
+                }
+
+                for(int ii = 0; ii < path_graph.size(); ii++)
+                {
+                    window.draw(path_graph[ii]);
+                }
+                
+
+                window.draw(tp->spirit);
+            }
+
+            for(int i = 0; i < KyloV.size(); i++)
+            {
+                KyloRen *tp = KyloV[i]; 
+                vector <sf::RectangleShape> path_graph;
+                for(int k = 0; k < tp->shortest_path.size(); k++)
+                {
+                    node_t tmp_r = tp->shortest_path[k];
+                    sf::RectangleShape tmp(sf::Vector2f(25.0f,25.0f));
+                    tmp.setPosition(50 * (tmp_r.y) + 25 ,50 * tmp_r.x);
+                    tmp.setFillColor(sf::Color::Yellow);
+                    path_graph.push_back(tmp);
+                }
+
+                for(int ii = 0; ii < path_graph.size(); ii++)
+                {
+                    window.draw(path_graph[ii]);
+                }
+
+                window.draw(tp->spirit);
+            }
+
+            for(int i = 0; i < DarthV.size(); i++)
+            {
+                DarthVader *tp = DarthV[i]; 
+                vector <sf::RectangleShape> path_graph;
+                for(int k = 0; k < tp->shortest_path.size(); k++)
+                {
+                    node_t tmp_r = tp->shortest_path[k];
+                    sf::RectangleShape tmp(sf::Vector2f(25.0f,25.0f));
+                    tmp.setPosition(50 * (tmp_r.y) ,50 * tmp_r.x + 25);
+                    tmp.setFillColor(sf::Color::Black);
+                    path_graph.push_back(tmp);
+                }
+
+                for(int ii = 0; ii < path_graph.size(); ii++)
+                {
+                    window.draw(path_graph[ii]);
+                }            
+                window.draw(tp->spirit);
+            }        
+            
+            
+            window.display();
+            ////////////////////////////////////////////////////////////////////////
+            if (ENDROUND) {
+                window.clear();
+
+                window.draw(c.spirit);
+                for(int i = 0; i < tileMap.size(); i++)
+                {
+                    vector<sf::RectangleShape> tilemapRow = tileMap[i];
+                    for(int j = 0; j < tilemapRow.size(); j++)
+                    {
+                        //duvarlara texture girdir 
+                        if (gameBoardLogic[i][j] == 0) {
+                            tilemapRow[j].setTexture(&wall);
+                            tilemapRow[j].setTextureRect(sf::IntRect(wall_textureSize.x * 1,wall_textureSize.y * 3,wall_textureSize.x,wall_textureSize.y));
+                            window.draw(tilemapRow[j]);
+                            
+                        } else {
+                            tilemapRow[j].setTexture(&road);
+                            tilemapRow[j].setTextureRect(sf::IntRect(road_textureSize.x * 2,road_textureSize.y * 1,road_textureSize.x,road_textureSize.y));
+                            window.draw(tilemapRow[j]);
+                        }
+                    }
+                }            
+                for(int i = 0; i < StormV.size(); i++)
+                {
+                    Stormtrooper *tp = StormV[i]; 
+                    window.draw(tp->spirit);
+                }
+
+                for(int i = 0; i < KyloV.size(); i++)
+                {
+                    KyloRen *tp = KyloV[i]; 
+                    window.draw(tp->spirit);
+                }
+
+                for(int i = 0; i < DarthV.size(); i++)
+                {
+                    DarthVader *tp = DarthV[i]; 
+                    window.draw(tp->spirit);
+                }              
+
+                window.display();
+
+                clock.restart();
+                sf::Time elapsed1 = clock.getElapsedTime();
+                //std::cout << elapsed1.asSeconds() << std::endl;
+                while(elapsed1.asSeconds() < 2){
+                    elapsed1 = clock.getElapsedTime();
+                }
+                //levele reset at
+                resetRound(&c,DarthV,KyloV,StormV);
+                ENDROUND = false;
+                c.healt--;
+                // burayı daha sofistike yap 
+                if(c.healt == 0){
+                    cout << "GAMEOVER" << endl;
+                    exit(0);             
+                } 
+            }
+        }    
+    
+    
+    
+    }
+
+
 
     return 0;
 }

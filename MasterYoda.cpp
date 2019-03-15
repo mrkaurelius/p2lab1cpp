@@ -32,6 +32,15 @@ MasterYoda::MasterYoda()
 
 }
 
+void MasterYoda::setName(const char *name){
+    this->name = name;
+}
+
+const char* MasterYoda::getName(){
+    return this->name;
+}
+
+
 MasterYoda::~MasterYoda()
 {
     std::cout << "MASTER dunya meger sende bir hayalden ibaretmissin... " << this->name << std::endl;

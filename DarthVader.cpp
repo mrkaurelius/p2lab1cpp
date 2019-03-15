@@ -358,6 +358,13 @@ void DarthVader::moveRandom(int **gameBoardLogic){
 
    std::cout << "////////////////////////DARTHVADER////////////////////////" << std::endl;
 }
+void DarthVader::setName(const char *name){
+    this->name = name;
+}
+
+const char* DarthVader::getName(){
+    return this->name;
+}
 
 DarthVader::DarthVader()
 {

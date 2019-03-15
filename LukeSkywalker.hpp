@@ -10,6 +10,8 @@ private:
     /* data */
 public:
     float healt;
+    void setName(const char *name);
+    const char* getName();
 public:
     LukeSkywalker(/* args */);
     LukeSkywalker(const char* name,int x,int y);

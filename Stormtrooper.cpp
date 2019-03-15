@@ -356,6 +356,14 @@ void Stormtrooper::moveRandom(int **gameBoardLogic){
    std::cout << "/////////////////////STROMTROOPER//////////////////////////" << std::endl;
 }
 
+void Stormtrooper::setName(const char *name){
+    this->name = name;
+}
+
+const char* Stormtrooper::getName(){
+    return this->name;
+}
+
 Stormtrooper::Stormtrooper()
 {
 

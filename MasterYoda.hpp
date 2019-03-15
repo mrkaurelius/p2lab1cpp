@@ -10,8 +10,11 @@ private:
     /* data */
 public:
     float healt;
+    void setName(const char *name);
+    const char* getName();
 public:
     MasterYoda(/* args */);
+    
     MasterYoda(const char* name,int x,int y);
     ~MasterYoda();
 };

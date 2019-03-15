@@ -21,6 +21,7 @@ class Character
 {
 private:
 public:
+
     int logicX;
     int logicY;
     int initialX;

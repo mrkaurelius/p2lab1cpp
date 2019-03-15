@@ -25,7 +25,13 @@ LukeSkywalker::LukeSkywalker(const char* name,int x,int y){
     this->spirit = tmpSpirit;
     std::cout << "LUKE merhaba zalım dunya eved adım "<< this->name << std::endl;
 }
+void LukeSkywalker::setName(const char *name){
+    this->name = name;
+}
 
+const char* LukeSkywalker::getName(){
+    return this->name;
+}
 
 LukeSkywalker::LukeSkywalker()
 {
