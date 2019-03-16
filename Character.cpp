@@ -16,8 +16,8 @@ Character::Character(const char* name,int x,int y){
     this->initialX = x;
     this->initialY = y;
     sf::Texture character_texture;
-    character_texture.loadFromFile("/home/mrk1debian/gelistirme/cpptut/media/sheet1.png");
-    //character_texture.loadFromFile("/home/mrk0debian/gelistirme/p2lab1cpp/media/sheet1.png");
+    //character_texture.loadFromFile("/home/mrk1debian/gelistirme/cpptut/media/sheet1.png");
+    character_texture.loadFromFile("/home/mrk0debian/gelistirme/p2lab1cpp/media/sheet1.png");
 
     sf::Vector2u character_textureSize = character_texture.getSize();
     character_textureSize.x /= 8;

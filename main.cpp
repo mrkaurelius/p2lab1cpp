@@ -67,8 +67,8 @@ int main()
 
     //road texture
     sf::Texture road;
-    road.loadFromFile("/home/mrk1debian/gelistirme/cpptut/media/sheet1.png");
-    //road.loadFromFile("/home/mrk0debian/gelistirme/p2lab1cpp/media/sheet1.png");
+    //road.loadFromFile("/home/mrk1debian/gelistirme/cpptut/media/sheet1.png");
+    road.loadFromFile("/home/mrk0debian/gelistirme/p2lab1cpp/media/sheet1.png");
 
     sf::Vector2u road_textureSize = road.getSize();
     road_textureSize.x /= 8;
@@ -76,8 +76,8 @@ int main()
     
     //wall texture
     sf::Texture wall;
-    wall.loadFromFile("/home/mrk1debian/gelistirme/cpptut/media/sheet1.png");
-    //wall.loadFromFile("/home/mrk0debian/gelistirme/p2lab1cpp/media/sheet1.png");
+    //wall.loadFromFile("/home/mrk1debian/gelistirme/cpptut/media/sheet1.png");
+    wall.loadFromFile("/home/mrk0debian/gelistirme/p2lab1cpp/media/sheet1.png");
 
     sf::Vector2u wall_textureSize = wall.getSize();
     wall_textureSize.x /= 8;
@@ -85,14 +85,14 @@ int main()
 
     //player texture
     sf::Texture player_texture;
-    player_texture.loadFromFile("/home/mrk1debian/gelistirme/cpptut/media/sheet1.png");
-    //player_texture.loadFromFile("/home/mrk0debian/gelistirme/p2lab1cpp/media/sheet1.png");
+    //player_texture.loadFromFile("/home/mrk1debian/gelistirme/cpptut/media/sheet1.png");
+    player_texture.loadFromFile("/home/mrk0debian/gelistirme/p2lab1cpp/media/sheet1.png");
 
 
     // texture ref
     sf::Texture texture_ref;
-    texture_ref.loadFromFile("/home/mrk1debian/gelistirme/cpptut/media/sheet1.png");
-    //texture_ref.loadFromFile("/home/mrk0debian/gelistirme/p2lab1cpp/media/sheet1.png");
+    //texture_ref.loadFromFile("/home/mrk1debian/gelistirme/cpptut/media/sheet1.png");
+    texture_ref.loadFromFile("/home/mrk0debian/gelistirme/p2lab1cpp/media/sheet1.png");
 
 
     cout << "KARAKTERNI SEC !! YODA:1 LUKE:2" << endl;
