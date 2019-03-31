@@ -17,4 +17,3 @@ public:
     LukeSkywalker(const char* name,int x,int y);
     ~LukeSkywalker();
 };
-

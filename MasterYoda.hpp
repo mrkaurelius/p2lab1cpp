@@ -18,4 +18,3 @@ public:
     MasterYoda(const char* name,int x,int y);
     ~MasterYoda();
 };
-
